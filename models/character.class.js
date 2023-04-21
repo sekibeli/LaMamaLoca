@@ -10,7 +10,9 @@ class Character extends MovableObject {
         'images/Mage/Walk/walk6.png'
     ];
     currentImage = 0;
-world;
+    world;
+    speed = 3;
+    CHAR_WALKING = new Audio('audio/walk.mp3');
 
     constructor() {
         super();
@@ -24,18 +26,38 @@ world;
     }
 
     animate() {
-        setInterval( () => {
-
-
-            if (this.world.keyboard.RIGHT) {
-           
-           
-                let i = this.currentImage % this.IMAGES_WALKING.length;
-        let path = this.IMAGES_WALKING[i];
-        this.img = this.imageCache[path];
-        this.currentImage++;
+         setInterval(() => {
+            this.CHAR_WALKING.pause();
+            if(this.world.keyboard.RIGHT && this.x <= this.world.level.level_end_x){
+                this.otherDirection = false;
+                this.x += this.speed;
+                this.CHAR_WALKING.play();
+                
             }
-        }, 150);
-    }
+
+            if(this.world.keyboard.LEFT && this.x > 0){
+                this.otherDirection = true;
+                this.x -= this.speed;
+                this.CHAR_WALKING.play();
+                
+            }
+            this.world.camera_x = -this.x  +100;
+        }, 1000/60);
         
+        
+        
+        
+        setInterval(() => {
+            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                // walk animation
+                let i = this.currentImage % this.IMAGES_WALKING.length;
+                let path = this.IMAGES_WALKING[i];
+                this.img = this.imageCache[path];
+                this.currentImage++;
+            }
+
+            
+        }, 100);
+    }
+
 } 
