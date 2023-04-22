@@ -20,7 +20,6 @@ if (e.keyCode == 37) keyboard.LEFT = true;
 if (e.keyCode == 39) keyboard.RIGHT = true;
 if (e.keyCode == 32) keyboard.SPACE = true;
 if (e.keyCode == 68) keyboard.D = true;
-
 });
 
 window.addEventListener('keyup', (e) => {
@@ -30,5 +29,4 @@ window.addEventListener('keyup', (e) => {
     if (e.keyCode == 39) keyboard.RIGHT = false;
     if (e.keyCode == 32) keyboard.SPACE = false;
     if (e.keyCode == 68) keyboard.D = false;
-    
-    });
+        });
