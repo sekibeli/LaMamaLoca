@@ -25,12 +25,13 @@ height = 850;
         this.loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.x = 2000;
-        this.y = -50;
+        this.y = -100;
         this.animate();
     }
 
     animate(){
         setInterval(() => {
+            this.otherDirection = true;
             this.playAnimation(this.IMAGES_WALKING);
         }, 200);
     }

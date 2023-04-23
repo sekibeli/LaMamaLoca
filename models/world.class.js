@@ -1,10 +1,8 @@
 class World {
     character = new Character();
+    statusBar = new StatusBar();
     sky = new Sky();
     level = level1;
-
-
-
     ctx;
     canvas;
     keyboard;
@@ -27,10 +25,14 @@ checkCollisions(){
     setInterval(() => {
         this.level.enemies.forEach((enemy) => {
             if(this.character.isColliding(enemy)) {
-                console.log('Collision with ', enemy );
+                console.log('Collision with Character', this.character.energy );
+                this.character.hit();
+                this.statusBar.setPercentage(this.character.energy);
+                
             }
+            
     });
-    },1000);
+    },200);
 }
 
     draw() {
@@ -39,13 +41,18 @@ checkCollisions(){
         this.ctx.translate(this.camera_x, 0);
 
         this.addToMap(this.sky);
+        
         this.addObjectsToMap(this.level.clouds);
+        
         this.addObjectsToMap(this.level.backgroundObjects);
 
 
         this.addObjectsToMap(this.level.enemies);
         this.addToMap(this.character);
 
+        this.ctx.translate(-this.camera_x, 0);
+        this.addToMap(this.statusBar);
+        this.ctx.translate(this.camera_x, 0);
 
         this.ctx.translate(-this.camera_x, 0);
 

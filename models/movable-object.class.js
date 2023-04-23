@@ -1,19 +1,13 @@
-class MovableObject {
-    x = 120;
-    y = 290;
-    img;
-    height = 150;
-    width = 120;
-    imageCache = {};
-    currentImage = 0;
-    speed = 0.15;
+class MovableObject extends DrawableObject{
+       speed = 0.15;
     otherDirection = false;
     speedY = 0;
     acceleration = 2.5;
+    energy = 100;
 
+lastHit = 0;
 
-
-    constructor(x, y,) { }
+    // constructor(x, y,) { }
 
     applyGravity() {
         setInterval(() => {
@@ -28,50 +22,24 @@ class MovableObject {
     isAboveGround() {
         return this.y < 230;
     }
-
-    loadImage(path) {
-        this.img = new Image();
-        this.img.src = path;
-    }
-
-    loadImages(arr) {
-        arr.forEach((path) => {
-            let img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
-        });
-
-    }
-
-    draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    }
-
-    drawFrame(ctx) {
-
-        if (this instanceof Character || this instanceof Chicken) {
-            ctx.beginPath();
-            ctx.lineWidth = '2';
-            ctx.strokeStyle = 'blue';
-            if(this instanceof Character){
-            ctx.rect(this.x+25, this.y+35, this.width - 100, this.height -50);
-            }
-            if(this instanceof Chicken){
-                ctx.rect(this.x, this.y, this.width, this.height);
-                }
-            ctx.stroke();
-        }
-    }
-
-
-
+ 
     isColliding(obj) {
-        return  (this.X + this.width) >= obj.X && this.X <= (obj.X + obj.width) && 
-                (this.Y + this.offsetY + this.height) >= obj.Y &&
-                (this.Y + this.offsetY) <= (obj.Y + obj.height) && 
-                obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+        return this.x + 25 + this.width - 100 > obj.x &&
+            this.y + 35 + this.height - 50 > obj.y &&
+            this.x + 25 < obj.x &&
+            this.y + 35 < obj.y + obj.height
+    }
 
-}
+
+
+
+    //     isColliding(obj) {
+    //         return  (this.x + this.width) >= obj.x && this.x <= (obj.x + obj.width) && 
+    //                 (this.y + this.offsetY + this.height) >= obj.y &&
+    //                 (this.y + this.offsetY) <= (obj.y + obj.height) && 
+    //                 obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+
+    // }
     moveRight() {
         this.x += this.speed;
 
@@ -83,21 +51,53 @@ class MovableObject {
 
 
 
-    animate() {
-        setInterval(() => {
-            let i = this.currentImage % this.IMAGES_WALKING.length;
-            let path = this.IMAGES_WALKING[i];
-            this.img = this.imageCache[path];
-            this.currentImage++;
-        }, 150);
+    // animate() {
+    //     setInterval(() => {
+    //         let i = this.currentImage % this.IMAGES_WALKING.length;
+    //         let path = this.IMAGES_WALKING[i];
+    //         this.img = this.imageCache[path];
+    //         this.currentImage++;
+    //     }, 150);
 
-    }
+    // }
 
 
     playAnimation(images) {
-        let i = this.currentImage % this.IMAGES_WALKING.length;
+        let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCache[path];
+        
         this.currentImage++;
+        
+    }
+
+    playAnimationDead(images) {
+        for (let i = 0; i <images.length; i++){
+        let path = images[i];
+        this.img = this.imageCache[path];
+        console.log(this.img);
+        }
+        
+        
+    }
+
+    hit() {
+        this.energy -= 5;
+        if (this.energy < 0) {
+           this.energy = 0; 
+        } else {
+            this.lastHit = new Date().getTime();
+
+        }
+    }
+
+    isHurt(){
+        let timepassed = new Date().getTime() - this.lastHit;
+        timepassed = timepassed / 1000 // sec
+      
+        return timepassed < 1;
+    }
+    isDead() {
+        return this.energy == 0;
     }
 }
