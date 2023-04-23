@@ -1,6 +1,6 @@
 class World {
     character = new Character();
-    statusBar = new StatusBar();
+     statusBar = new StatusBar();
     sky = new Sky();
     level = level1;
     ctx;
@@ -49,11 +49,12 @@ checkCollisions(){
 
         this.addObjectsToMap(this.level.enemies);
         this.addToMap(this.character);
-
+// ----------- fixed elements --------->
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
+        // this.addToMap(this.health);
         this.ctx.translate(this.camera_x, 0);
-
+//--------------------------------------->
         this.ctx.translate(-this.camera_x, 0);
 
         let self = this;

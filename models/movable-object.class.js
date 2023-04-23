@@ -51,15 +51,15 @@ lastHit = 0;
 
 
 
-    // animate() {
-    //     setInterval(() => {
-    //         let i = this.currentImage % this.IMAGES_WALKING.length;
-    //         let path = this.IMAGES_WALKING[i];
-    //         this.img = this.imageCache[path];
-    //         this.currentImage++;
-    //     }, 150);
+    animate() {
+        setInterval(() => {
+            let i = this.currentImage % this.IMAGES_WALKING.length;
+            let path = this.IMAGES_WALKING[i];
+            this.img = this.imageCache[path];
+            this.currentImage++;
+        }, 150);
 
-    // }
+    }
 
 
     playAnimation(images) {
