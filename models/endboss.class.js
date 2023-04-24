@@ -24,7 +24,7 @@ height = 850;
         super();
         this.loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
-        this.x = 2000;
+        this.x = 3500;
         this.y = -100;
         this.animate();
     }

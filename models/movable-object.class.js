@@ -4,6 +4,8 @@ class MovableObject extends DrawableObject{
     speedY = 0;
     acceleration = 2.5;
     energy = 100;
+    amount_apples = 0;
+    amount_coins = 0;
 
 lastHit = 0;
 
@@ -79,6 +81,11 @@ lastHit = 0;
         }
         
         
+    }
+
+    collect(){
+                this.amount_apples++;
+                console.log('einer mehr: ', this.amount_apples);
     }
 
     hit() {

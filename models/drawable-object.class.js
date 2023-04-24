@@ -1,4 +1,5 @@
 class DrawableObject {
+   
     x = 120;
     y = 290;
     height = 150;
@@ -7,14 +8,16 @@ class DrawableObject {
     imageCache = {};
     currentImage = 0;
 
-
+    
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
     }
 
     draw(ctx) {
+        
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+        // console.log('draw Image', this.img.src);
     }
 
     loadImages(arr) {
@@ -22,6 +25,7 @@ class DrawableObject {
             let img = new Image();
             img.src = path;
             this.imageCache[path] = img;
+          
         });
 
     }

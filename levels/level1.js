@@ -41,6 +41,45 @@ const level1 = new Level(
         new BackgroundObject('images/nature/3.png', 2060),
         new BackgroundObject('images/nature/5.png', 2060),
         new BackgroundObject('images/nature/8.png', 2060),
+        new BackgroundObject('images/nature/3.png', 2780),
+        new BackgroundObject('images/nature/5.png', 2780),
+        new BackgroundObject('images/nature/6.png', 2780),
+        new BackgroundObject('images/nature/7.png', 2780),
+        new BackgroundObject('images/nature/8.png', 2780),
+        new BackgroundObject('images/nature/3.png', 3500),
+        new BackgroundObject('images/nature/5.png', 3500),
+        new BackgroundObject('images/nature/6.png', 3500),
+        new BackgroundObject('images/nature/8.png', 3500),
+    ],
+    [
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin()
+
+    ],
+    [
+        new Apple(),
+        new Apple(),
+        new Apple(),
+        new Apple(),
+        new Apple(),
+        new Apple(),
+        new Apple(),
+        new Apple(),
+        new Apple(),
+        new Apple(),
+        new Apple(),
+        new Apple(),
     ]
+
 
 );

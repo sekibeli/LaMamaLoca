@@ -1,5 +1,5 @@
 class Sky extends MovableObject{
-    width = 4000;
+    width = 5020;
     height = 480;
     x = -720;
     y = 0;
