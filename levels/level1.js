@@ -78,7 +78,7 @@ const level1 = new Level(
         new Apple(),
         new Apple(),
         new Apple(),
-        new Apple(),
+        new Apple()
     ]
 
 

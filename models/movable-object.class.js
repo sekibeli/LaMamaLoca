@@ -22,7 +22,11 @@ lastHit = 0;
     }
 
     isAboveGround() {
+        if(this instanceof ThrowableObject){
+            return true;
+        } else {
         return this.y < 230;
+        }
     }
  
     isColliding(obj) {

@@ -5,6 +5,7 @@ class World {
     healthBar = new HealthBar();
     coinBar = new CoinBar();
     appleBar = new AppleBar();
+    throwableObjects = [];
 
     level = level1;
     ctx;
@@ -18,7 +19,7 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.draw();
         this.setWorld();
-        this.checkCollisions();
+        this.run();
         this.checkCollisionsCollect();
     }
 
@@ -26,18 +27,61 @@ class World {
         this.character.world = this;
     }
 
-    checkCollisions() {
+    run() {
+
+        //check collisions
         setInterval(() => {
-            this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy)) {
-                    // console.log('Collision with Character', this.character.energy );
-                    this.character.hit();
-                    this.healthBar.setPercentage(this.character.energy);
-
-                }
-
-            });
+            this.checkCollisions();
+            this.checkThrowObjects();
         }, 200);
+    }
+
+    checkThrowObjects() {
+if (this.keyboard.SPACE){
+    console.log(this.character.x);
+    console.log(this.throwableObjects.length);
+    // let apple = new ThrowableObject(this.character.x + 80, this.character.y + 100);
+    // this.throwableObjects.push(apple);
+    if(this.throwableObjects.length > 0){
+        this.throwableObjects[this.throwableObjects.length -1].x = this.character.x;
+        this.throwableObjects[this.throwableObjects.length -1].y = this.character.y;
+        this.throwableObjects[this.throwableObjects.length -1].throw();
+        setTimeout(() => {
+            this.throwableObjects.splice(this.throwableObjects.length -1,1);
+        },2000)
+        
+       
+    }
+  
+}
+    }
+
+    checkCollisions() {
+        this.level.enemies.forEach((enemy,i) => {
+            if (this.character.isColliding(enemy) && !this.character.invulnerable) {
+                if (this.character.isAboveGround() && this.character.speedY < 0) {
+                    this.level.enemies.splice(i, 1);
+                    console.log('von oben');
+                    // this.character.hit();
+                    // this.healthBar.setPercentage(this.character.energy);
+                    this.character.invulnerable = true;
+                   setTimeout(()=> {this.character.invulnerable = false}, 2000); 
+                   
+                             
+                    
+                }  else {
+
+                this.character.hit();
+                console.log('hit');
+                this.healthBar.setPercentage(this.character.energy);
+                }
+                
+            } 
+            
+            
+
+
+        });
     }
 
 
@@ -48,7 +92,11 @@ class World {
                     // console.log('Collision with Character', this.character.energy );
                     this.character.collect(ap);
                     console.log('apple found', ap);
+                    this.throwableObjects.push(ap);
+                    ap.y = 800;
                     this.level.apple.splice(i, 1);
+
+                   
                     // this.healthBar.setPercentage(this.character.energy);
 
                 }
@@ -71,6 +119,7 @@ class World {
         this.addObjectsToMap(this.level.coin);
         this.addObjectsToMap(this.level.apple);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.throwableObjects);
         this.addToMap(this.character);
         // ----------- fixed elements --------->
         this.ctx.translate(-this.camera_x, 0);

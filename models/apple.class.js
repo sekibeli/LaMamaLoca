@@ -1,4 +1,4 @@
-class Apple extends MovableObject {
+class Apple extends ThrowableObject {
     width = 50;
 height = 50;
 speed = 0;

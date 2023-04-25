@@ -7,6 +7,8 @@ class Character extends MovableObject {
     CHAR_WALKING = new Audio('audio/walk.mp3');
     CHAR_JUMPING = new Audio('audio/littlejump.mp3');
     check = 0;
+    invulnerable = false;
+
 
 
     IMAGES_WALKING = [
