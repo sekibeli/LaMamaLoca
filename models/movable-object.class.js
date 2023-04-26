@@ -6,6 +6,12 @@ class MovableObject extends DrawableObject{
     energy = 100;
     amount_apples = 0;
     amount_coins = 0;
+    offset = {
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0
+    }
 
 lastHit = 0;
 
@@ -29,23 +35,24 @@ lastHit = 0;
         }
     }
  
-    isColliding(obj) {
-        return this.x + 25 + this.width - 100 > obj.x &&
-            this.y + 35 + this.height - 50 > obj.y &&
-            this.x + 25 < obj.x &&
-            this.y + 35 < obj.y + obj.height
-    }
-
-
-
-
-    //     isColliding(obj) {
-    //         return  (this.x + this.width) >= obj.x && this.x <= (obj.x + obj.width) && 
-    //                 (this.y + this.offsetY + this.height) >= obj.y &&
-    //                 (this.y + this.offsetY) <= (obj.y + obj.height) && 
-    //                 obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
-
+    // isColliding(obj) {
+    //     return this.x + 25 + this.width - 100 > obj.x &&
+    //         this.y + 35 + this.height - 50 > obj.y &&
+    //         this.x + 25 < obj.x &&
+    //         this.y + 35 < obj.y + obj.height
     // }
+
+
+
+
+        isColliding(obj) {
+            return  (this.x  + this.width - this.offset.right) >= obj.x + obj.offset.left && 
+                    this.x + this.offset.left <= (obj.x + obj.width - obj.offset.right) && 
+                    (this.y + this.height - this.offset.bottom) >= obj.y + obj.offset.top &&
+                    (this.y + this.offset.top) <= (obj.y + obj.height - obj.offset.bottom) 
+                    // && obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+
+    }
     moveRight() {
         this.x += this.speed;
 
@@ -93,6 +100,7 @@ lastHit = 0;
     }
 
     hit() {
+        
         this.energy -= 5;
         if (this.energy < 0) {
            this.energy = 0; 
@@ -100,15 +108,24 @@ lastHit = 0;
             this.lastHit = new Date().getTime();
 
         }
+    
     }
 
     isHurt(){
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000 // sec
       
-        return timepassed < 1;
+        return timepassed < 2;
     }
     isDead() {
         return this.energy == 0;
     }
+
+    enemyIsDying(enemy){
+        if(!this.enemyAlive){
+            enemy.y -= 50;
+           if (enemy.y < 0) enemy.y = 0;
+            
+          }
+        }
 }

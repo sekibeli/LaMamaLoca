@@ -33,57 +33,67 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
-        }, 200);
+        }, 300);
     }
 
     checkThrowObjects() {
-if (this.keyboard.SPACE){
-    console.log(this.character.x);
-    console.log(this.throwableObjects.length);
-    // let apple = new ThrowableObject(this.character.x + 80, this.character.y + 100);
-    // this.throwableObjects.push(apple);
-    if(this.throwableObjects.length > 0){
-        this.throwableObjects[this.throwableObjects.length -1].x = this.character.x;
-        this.throwableObjects[this.throwableObjects.length -1].y = this.character.y;
-        this.throwableObjects[this.throwableObjects.length -1].throw();
-        setTimeout(() => {
-            this.throwableObjects.splice(this.throwableObjects.length -1,1);
-        },2000)
-        
-       
-    }
-  
-}
+    
+        if (this.keyboard.SPACE) {
+
+            console.log(this.character.x);
+            console.log(this.throwableObjects.length);
+            // let apple = new ThrowableObject(this.character.x + 80, this.character.y + 100);
+            // this.throwableObjects.push(apple);
+            if (this.throwableObjects.length > 0) {
+                this.throwableObjects[this.throwableObjects.length - 1].x = this.character.x +100;
+                this.throwableObjects[this.throwableObjects.length - 1].y = this.character.y;
+                this.throwableObjects[this.throwableObjects.length - 1].throw();
+                setTimeout(() => {
+                    this.throwableObjects.splice(this.throwableObjects.length - 1, 1);
+                }, 3000)
+
+
+            }
+
+        }
     }
 
     checkCollisions() {
-        this.level.enemies.forEach((enemy,i) => {
+        this.level.enemies.forEach((enemy, i) => {
             if (this.character.isColliding(enemy) && !this.character.invulnerable) {
                 if (this.character.isAboveGround() && this.character.speedY < 0) {
-                    this.level.enemies.splice(i, 1);
-                    console.log('von oben');
-                    // this.character.hit();
-                    // this.healthBar.setPercentage(this.character.energy);
                     this.character.invulnerable = true;
-                   setTimeout(()=> {this.character.invulnerable = false}, 2000); 
+                    this.enemyAlive = false;
+                    this.enemyIsDying(enemy);
+                    this.character.jump();
+                      
                    
-                             
-                    
-                }  else {
+                      setTimeout(() => {
+                        if (!this.enemyAlive) {
+                            this.level.enemies.splice(i, 1);
+                        }
+                        this.character.invulnerable = false;
+                    }, 2000);
 
-                this.character.hit();
-                console.log('hit');
-                this.healthBar.setPercentage(this.character.energy);
+                } else {
+                    this.character.hit();
+                    console.log('hit');
+                    this.healthBar.setPercentage(this.character.energy);
                 }
-                
-            } 
-            
-            
-
+            }
 
         });
     }
 
+    enemyIsDying(enemy) {
+        if (!this.enemyAlive) {
+            console.log('Enemy wird world flach');
+            enemy.height = 10;
+           enemy.y = 400;
+           enemy.speed = 0;
+
+        }
+    }
 
     checkCollisionsCollect() {
         setInterval(() => {
@@ -96,8 +106,8 @@ if (this.keyboard.SPACE){
                     ap.y = 800;
                     this.level.apple.splice(i, 1);
 
-                   
-                    // this.healthBar.setPercentage(this.character.energy);
+
+                     this.appleBar.setPercentage(this.throwableObjects.length);
 
                 }
 

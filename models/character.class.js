@@ -8,6 +8,12 @@ class Character extends MovableObject {
     CHAR_JUMPING = new Audio('audio/littlejump.mp3');
     check = 0;
     invulnerable = false;
+    offset = {
+        top: 100,
+        bottom: 20,
+        left: 30,
+        right: 100
+    }
 
 
 
@@ -51,6 +57,23 @@ class Character extends MovableObject {
         'images/Mage/Death/death9.png',
         'images/Mage/Death/death10.png'
     ]
+    IMAGES_IDLING = [
+        'images/Mage/Idle/idle1.png',
+        'images/Mage/Idle/idle2.png',
+        'images/Mage/Idle/idle3.png',
+        'images/Mage/Idle/idle4.png',
+        'images/Mage/Idle/idle5.png',
+        'images/Mage/Idle/idle6.png',
+        'images/Mage/Idle/idle7.png',
+        'images/Mage/Idle/idle8.png',
+        'images/Mage/Idle/idle9.png',
+        'images/Mage/Idle/idle10.png',
+        'images/Mage/Idle/idle11.png',
+        'images/Mage/Idle/idle12.png',
+        'images/Mage/Idle/idle13.png',
+        'images/Mage/Idle/idle14.png',
+
+    ]
 
 
 
@@ -64,6 +87,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_IDLING);
 
         this.applyGravity();
         this.animate();
@@ -90,6 +114,7 @@ class Character extends MovableObject {
 
             if (this.world.keyboard.D && !this.isAboveGround()) {
                 this.jump();
+                // this.y = 230;
             }
 
             this.world.camera_x = -this.x + 100;
@@ -116,6 +141,11 @@ class Character extends MovableObject {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                     // walk animation
                     this.playAnimation(this.IMAGES_WALKING);
+                } else {
+                    this.playAnimation(this.IMAGES_IDLING);
+                   
+                    
+                    
                 }
             }
 
@@ -123,6 +153,6 @@ class Character extends MovableObject {
     }
 
     jump() {
-        this.speedY = 25;
+        this.speedY = 28;
     }
 } 

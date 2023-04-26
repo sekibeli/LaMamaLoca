@@ -31,14 +31,14 @@ class DrawableObject {
     }
     drawFrame(ctx) {
 
-        if (this instanceof Character || this instanceof Chicken) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof Spider) {
             ctx.beginPath();
             ctx.lineWidth = '2';
             ctx.strokeStyle = 'blue';
             // if(this instanceof Character){
             // ctx.rect(this.x+25, this.y+35, this.width - 100, this.height -50);
             // }
-            if (this instanceof Chicken || this instanceof Character) {
+            if (this instanceof Chicken || this instanceof Character || this instanceof Spider) {
                 ctx.rect(this.x, this.y, this.width, this.height);
             }
             ctx.stroke();
