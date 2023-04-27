@@ -117,6 +117,10 @@ class Character extends MovableObject {
                 // this.y = 230;
             }
 
+            if (this.world.keyboard.SPACE){
+                this.loadImage('images/Mage/Walk_Attack/walk_attack1.png');
+            }
+
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
 
@@ -142,7 +146,7 @@ class Character extends MovableObject {
                     // walk animation
                     this.playAnimation(this.IMAGES_WALKING);
                 } else {
-                    this.playAnimation(this.IMAGES_IDLING);
+                    // this.playAnimation(this.IMAGES_IDLING);
                    
                     
                     

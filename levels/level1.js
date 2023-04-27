@@ -13,7 +13,7 @@ const level1 = new Level(
         new Mosquito(),
         new Mosquito(),
         new Mosquito(),
-        new Endboss()
+        // new Endboss()
     ],
     [
         new Cloud(),

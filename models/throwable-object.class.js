@@ -15,18 +15,13 @@ speedX = 30;
     
 
 throw(){
-
-this.speedY = 25;
+  
+this.speedY = 15;
 this.applyGravity();
-
 setInterval(() => {
-    if (!this.otherDirection) {
-        this.x += 15;
-    }
-    else {
-        this.x -= 15;
-    }
-}, 25);
+     this.x += 50;
+       }
+, 25);
 
 }
 

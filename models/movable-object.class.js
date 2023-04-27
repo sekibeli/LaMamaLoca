@@ -23,6 +23,7 @@ lastHit = 0;
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
+          
         }, 1000 / 25);
 
     }
@@ -94,10 +95,11 @@ lastHit = 0;
         
     }
 
-    collect(){
-                this.amount_apples++;
-                console.log('einer mehr: ', this.amount_apples);
-    }
+    // collect(item){
+    //     item++;
+    //             // this.amount_apples++;
+    //             console.log('einer mehr: ',item);
+    // }
 
     hit() {
         
