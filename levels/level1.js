@@ -1,4 +1,5 @@
 const level1 = new Level(
+
    
     [
         new Chicken(),
@@ -13,8 +14,10 @@ const level1 = new Level(
         new Mosquito(),
         new Mosquito(),
         new Mosquito(),
-        // new Endboss()
+       
+       
     ],
+    
     [
         new Cloud(),
         new Cloud(),
@@ -49,7 +52,7 @@ const level1 = new Level(
         new BackgroundObject('images/nature/3.png', 3500),
         new BackgroundObject('images/nature/5.png', 3500),
         new BackgroundObject('images/nature/6.png', 3500),
-        new BackgroundObject('images/nature/8.png', 3500),
+        new BackgroundObject('images/nature/8.png', 3500)
     ],
     [
         new Coin(),
@@ -79,7 +82,11 @@ const level1 = new Level(
         new Apple(),
         new Apple(),
         new Apple()
-    ]
+    ],
+    
+        new Endboss()
+  
+    
 
 
 );

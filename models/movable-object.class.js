@@ -36,16 +36,7 @@ lastHit = 0;
         }
     }
  
-    // isColliding(obj) {
-    //     return this.x + 25 + this.width - 100 > obj.x &&
-    //         this.y + 35 + this.height - 50 > obj.y &&
-    //         this.x + 25 < obj.x &&
-    //         this.y + 35 < obj.y + obj.height
-    // }
-
-
-
-
+   
         isColliding(obj) {
             return  (this.x  + this.width - this.offset.right) >= obj.x + obj.offset.left && 
                     this.x + this.offset.left <= (obj.x + obj.width - obj.offset.right) && 
