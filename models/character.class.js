@@ -12,8 +12,12 @@ class Character extends MovableObject {
         top: 100,
         bottom: 20,
         left: 30,
-        right: 100
+        right: 90
     }
+    end = false;
+    characterDead = false;
+    energy = 50;
+    hitByEndboss = false;
 
 
 
@@ -98,21 +102,21 @@ class Character extends MovableObject {
     animate() {
         setInterval(() => {
             this.CHAR_WALKING.pause();
-            if (this.world.keyboard.RIGHT && this.x <= this.world.level.level_end_x) {
+            if (this.world.keyboard.RIGHT && this.x <= this.world.level.level_end_x && !this.characterDead) {
                 this.moveRight();
                 this.otherDirection = false;
                 this.CHAR_WALKING.play();
 
             }
 
-            if (this.world.keyboard.LEFT && this.x > 0) {
+            if (this.world.keyboard.LEFT && this.x > 0 && !this.characterDead) {
                 this.moveLeft();
                 this.otherDirection = true;
                 this.CHAR_WALKING.play();
 
             }
 
-            if (this.world.keyboard.D && !this.isAboveGround()) {
+            if (this.world.keyboard.D && !this.isAboveGround() && !this.characterDead) {
                 this.jump();
                 // this.y = 230;
             }
@@ -128,22 +132,26 @@ class Character extends MovableObject {
 
 
        setInterval(() => {
-            if (this.isDead() && this.check < 10) {
-                this.playAnimation(this.IMAGES_DEAD);
-               this.check++;
-               console.log(this.check);
+            if (this.isDead() && !this.end) {
+                this.playAnimationDead(this.IMAGES_DEAD, 'images/Mage/Death/death9.png' );
+               
+               this.end = true;
+            //    console.log(this.check);
 
             }
-             else if (this.isHurt()) {
+             else if (this.isHurt() && !this.characterDead || this.hitByEndboss) {
                 this.playAnimation(this.IMAGES_HURT);
+                // this.loadImage('images/Mage/Walk/walk1.png');
+                this.hitByEndboss = false;
             }
             else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
                 this.CHAR_JUMPING.play();
             } else {
 
-                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.characterDead) {
                     // walk animation
+                    console.log(this.energy);
                     this.playAnimation(this.IMAGES_WALKING);
                 } else {
                     // this.playAnimation(this.IMAGES_IDLING);

@@ -57,10 +57,10 @@ constructor(){
         else if (this.percentage > 30){
             return 3;
         }
-        else if (this.percentage > 20){
+        else if (this.percentage > 15){
             return 2;
         }
-        else if (this.percentage > 10){
+        else if (this.percentage > 0){
             return 1;
         }
         else {

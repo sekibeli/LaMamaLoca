@@ -1,5 +1,5 @@
 class DrawableObject {
-   
+
     x = 120;
     y = 290;
     height = 150;
@@ -7,15 +7,21 @@ class DrawableObject {
     img;
     imageCache = {};
     currentImage = 0;
+    offset = {
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0
+    }
 
-    
+
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
     }
 
     draw(ctx) {
-        
+
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
         // console.log('draw Image', this.img.src);
     }
@@ -25,21 +31,32 @@ class DrawableObject {
             let img = new Image();
             img.src = path;
             this.imageCache[path] = img;
-          
+
         });
 
     }
     drawFrame(ctx) {
 
-        if (this instanceof Character || this instanceof Chicken || this instanceof Spider) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof Spider || this instanceof Endboss) {
             ctx.beginPath();
             ctx.lineWidth = '2';
             ctx.strokeStyle = 'blue';
-            // if(this instanceof Character){
-            // ctx.rect(this.x+25, this.y+35, this.width - 100, this.height -50);
-            // }
-            if (this instanceof Chicken || this instanceof Character || this instanceof Spider) {
+            if (this instanceof Chicken || this instanceof Character || this instanceof Spider || this instanceof Endboss) {
                 ctx.rect(this.x, this.y, this.width, this.height);
+            }
+            ctx.stroke();
+        }
+    }
+
+
+    drawFrameOffset(ctx, offset) {
+
+        if (this instanceof Character || this instanceof Chicken || this instanceof Spider || this instanceof Endboss) {
+            ctx.beginPath();
+            ctx.lineWidth = '2';
+            ctx.strokeStyle = 'red';
+            if (this instanceof Chicken || this instanceof Character || this instanceof Spider || this instanceof Endboss) {
+                ctx.rect(this.x + offset.left, this.y + offset.top, this.width - offset.left - offset.right, this.height - offset.top - offset.bottom);
             }
             ctx.stroke();
         }

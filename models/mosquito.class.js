@@ -1,6 +1,6 @@
 class Mosquito extends MovableObject {
-    height = 70;
-    width = 80;
+    height = 110;
+    width = 120;
     // y = 190;
     IMAGES_WALKING = [
         'images/mosquito/flight1.png',

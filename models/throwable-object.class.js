@@ -19,9 +19,9 @@ throw(){
 this.speedY = 15;
 this.applyGravity();
 setInterval(() => {
-     this.x += 50;
+     this.x += 15;
        }
-, 25);
+, 10);
 
 }
 

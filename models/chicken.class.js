@@ -3,6 +3,7 @@ class Chicken extends MovableObject {
     height = 70;
     width = 80;
     y = 350;
+    CHICKEN_SMASH = new Audio('audio/huhn.mp3');
 
 
 
@@ -19,7 +20,7 @@ class Chicken extends MovableObject {
         this.loadImages(this.IMAGES_WALKING);
         this.x = 700 + Math.random() * 500;
         this.speed = 0.15 + Math.random() * 0.5;
-        // this.moveLeft();
+       
         this.animate();
     }
 

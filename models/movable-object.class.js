@@ -23,6 +23,9 @@ lastHit = 0;
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
+            if (this instanceof Character && this.y > 230){
+                this.y = 230;
+            }
           
         }, 1000 / 25);
 
@@ -76,12 +79,13 @@ lastHit = 0;
         
     }
 
-    playAnimationDead(images) {
+    playAnimationDead(images, image) {
         for (let i = 0; i <images.length; i++){
         let path = images[i];
         this.img = this.imageCache[path];
         console.log(this.img);
         }
+        this.loadImage(image);
         
         
     }
@@ -94,7 +98,7 @@ lastHit = 0;
 
     hit() {
         
-        this.energy -= 5;
+        this.energy -= 1;
         if (this.energy < 0) {
            this.energy = 0; 
         } else {
@@ -108,17 +112,18 @@ lastHit = 0;
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000 // sec
       
-        return timepassed < 2;
+        return timepassed < 1;
     }
     isDead() {
         return this.energy == 0;
     }
 
-    enemyIsDying(enemy){
-        if(!this.enemyAlive){
-            enemy.y -= 50;
-           if (enemy.y < 0) enemy.y = 0;
+    // enemyIsDying(enemy){
+    //     console.log('wird doch aufgerufen');
+    //     if(!this.enemyAlive){
+    //         enemy.y -= 50;
+    //        if (enemy.y < 0) enemy.y = 0;
             
-          }
-        }
+    //       }
+    //     }
 }

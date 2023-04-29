@@ -10,6 +10,7 @@
     <script src="models/movable-object.class.js"></script>
     <script src="models/throwable-object.class.js"></script>
     <script src="models/collectable-object.class.js"></script>
+   
     <script src="models/character.class.js"></script>
     <script src="models/chicken.class.js"></script>
     <script src="models/spider.class.js"></script>
@@ -27,27 +28,25 @@
     <script src="models/sky.class.js"></script>
     <script src="models/background-object.class.js"></script>
     <script src="models/keyboard.class.js"></script>
-    <script src="models/level.class.js"></script>
-    
     <script src="models/endboss.class.js"></script>
-       <script src="levels/level1.js"></script>
+    <script src="models/level.class.js"></script>
+    <script src="levels/level1.js"></script>
+    
+   
+    
     <script src="js/game.js"></script>
    
    
-    
-   
-   
-   
-   
-   
-   
-    
-
-    
+     
 </head>
-<body onload="init()">
-    <h1>La Mama Loca</h1>
+<body>
+    
+    <canvas id="canvas" class="d-none" width="720px" height="480px"></canvas>
+    <div id="startScreen">
+        <button id="start" class="button" onclick="init()">
+            Start
+        </button>
+    </div>
 
-    <canvas id="canvas" width="720px" height="480px"></canvas>
 </body>
 </html>
