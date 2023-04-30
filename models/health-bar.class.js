@@ -14,7 +14,7 @@ class HealthBar extends StatusBar {
         super();
         this.loadImages(this.IMAGES);
         console.log('constructor Health');
-        this.setPercentage(50);
+        this.setPercentage(60);
         this.x = 20;
         this.y = 10;
         this.width = 200;

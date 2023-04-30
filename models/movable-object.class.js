@@ -71,6 +71,7 @@ lastHit = 0;
 
 
     playAnimation(images) {
+        
         let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCache[path];
@@ -80,12 +81,16 @@ lastHit = 0;
     }
 
     playAnimationDead(images, image) {
+    
         for (let i = 0; i <images.length; i++){
+      
         let path = images[i];
         this.img = this.imageCache[path];
-        console.log(this.img);
+        console.log(i, this.img);
+   
+          
         }
-        this.loadImage(image);
+        // this.loadImage(image);
         
         
     }

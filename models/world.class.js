@@ -5,10 +5,11 @@ class World {
     healthBar = new HealthBar();
     coinBar = new CoinBar();
     appleBar = new AppleBar();
-    // endboss = new Endboss();
+    healthBarEndboss = new HealthBarEndboss();
+    endbossPic = new EndbossPic();
     throwableObjects = [];
     collectableObjects = [];
-
+// energy = 60;
     amount_apples;
     apple;
     level = level1;
@@ -17,7 +18,9 @@ class World {
     keyboard;
     camera_x = 0;
     end = false;
+    i = 0;
     // hitByEndboss = false;
+    runningInterval;
 
     constructor(canvas, keyboard) {
         this.canvas = canvas;
@@ -35,7 +38,7 @@ class World {
 
     run() {
 
-        setInterval(() => {
+       this.runningInterval = setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
             this.checkIfEndbossHitsCharacter();
@@ -103,7 +106,7 @@ class World {
     }
 
     checkIfEndbossHitsCharacter() {
-        console.log(this.character.isColliding(this.level.endboss));
+        // console.log('endgame:' , this.character.isColliding(this.level.endboss));
         if (this.character.isColliding(this.level.endboss)) {
 
             this.character.hitByEndboss = true;
@@ -114,15 +117,15 @@ class World {
 
             this.characterDead = true;
         }
-        setTimeout(() => {
-            this.character.hitByEndboss = false;
-        }, 1000);
+        // setTimeout(() => {
+        //     this.character.hitByEndboss = false;
+        //     console.log('hit = false');
+        // }, 1000);
     }
 
 
 enemyIsDying(enemy) {
     if (!this.enemyAlive) {
-        // console.log('class world - platt');
         enemy.height = 10;
         enemy.y = 400;
         enemy.speed = 0;
@@ -131,25 +134,41 @@ enemyIsDying(enemy) {
 }
 
 checkIfAppleCollidesWithEndboss(apple) {
-    let endboss = this.level.endboss;
-    setInterval(() => {
+   
+   let checkCollisionApple = setInterval(() => {
 
-        if (apple.isColliding(endboss) && !this.level.endboss.dead) {
+        if (apple.isColliding(this.level.endboss) && !this.level.endboss.dead && this.level.endboss.energy > 0) {
 
-            console.log('smasch');
+            console.log('smasch', this.i);
+            this.level.endboss.energy -= 15;
 
             this.level.endboss.hitWithApple = true;
             this.level.endboss.amountAppleHits = this.level.endboss.amountAppleHits + 1;
 
-            endboss.playAnimation(endboss.IMAGES_HURT);
+            this.level.endboss.playAnimation(this.level.endboss.IMAGES_HURT);
+this.i++;
+console.log('endboss energy: ',this.level.endboss.energy);
 
+this.healthBarEndboss.setPercentage(this.level.endboss.energy);
+
+if(this.level.endboss.energy == 0){
+
+    console.log('futschijama');
+    this.level.endboss.dead = true;
+    // clearInterval(checkCollisionApple);
+    // clearInterval(this.runningInterval);
+    // this.playDeathAnimation();
+}
 
         }
-        else {
+        
 
-        }
+    }, 300);
 
-    }, 200);
+}
+
+playDeathAnimation(){
+    this.level.endboss.playAnimation(this.level.endboss.IMAGES_DEATH); 
 
 }
 
@@ -159,27 +178,25 @@ checkCollisionsCollect() {
 
             if (this.character.isColliding(ap)) {
                 ap.APPLE_BITE.play();
-                // this.character.collect(ap);
-                // console.log('apple found', ap);
+               
                 this.throwableObjects.push(ap);
                 this.appleBar.amount_apples = this.throwableObjects.length;
-                // console.log('gesammelt: ', this.appleBar.amount_apples);
+              
                 ap.y = 800;
                 this.level.apple.splice(i, 1);
-                //  this.appleBar.setPercentage(this.throwableObjects.length);
+               
             }
         });
 
         this.level.coin.forEach((co, i) => {
             if (this.character.isColliding(co)) {
                 co.MONEY_COLLECT.play();
-                // this.character.collect(co);
-                // console.log('coin found', co);
+             
                 this.collectableObjects.push(co);
                 this.coinBar.amount_coins = this.collectableObjects.length;
                 co.y = 800;
                 this.level.coin.splice(i, 1);
-                //  this.appleBar.setPercentage(this.throwableObjects.length);
+                
             }
         });
     }, 200);
@@ -187,10 +204,10 @@ checkCollisionsCollect() {
 
 checkIfEndbossIsDead() {
     if (!this.level.endboss.dead) {
-        // console.log('hits: ', this.level.endboss.amountAppleHits);
-        // console.log('energy: ', this.character.energy);
-        if (this.level.endboss.amountAppleHits > 5) {
+     
+        if (this.level.endboss.energy == 0) {
             this.level.endboss.dead = true;
+            this.end = true;
             return true;
         }
     }
@@ -212,16 +229,18 @@ draw() {
     this.addObjectsToMap(this.level.coin);
     this.addObjectsToMap(this.level.apple);
     this.addObjectsToMap(this.level.enemies);
-    // this.addObjectsToMap(this.level.endboss);
+   
     this.addToMap(this.level.endboss);
     this.addObjectsToMap(this.throwableObjects);
     this.addToMap(this.character);
     // ----------- fixed elements --------->
     this.ctx.translate(-this.camera_x, 0);
-    // this.addToMap(this.statusBar);
+  
     this.addToMap(this.healthBar);
     this.addToMap(this.coinBar);
     this.addToMap(this.appleBar);
+    this.addToMap(this.healthBarEndboss);
+    this.addToMap(this.endbossPic);
     this.ctx.translate(this.camera_x, 0);
     //--------------------------------------->
     this.ctx.translate(-this.camera_x, 0);

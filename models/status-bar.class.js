@@ -48,10 +48,10 @@ constructor(){
     }
 
     getImageIndex(){
-        if(this.percentage == 50){
+        if(this.percentage == 60){
             return 5;
         }
-        else if(this.percentage > 40 ){
+        else if(this.percentage > 45 ){
             return 4;
         }
         else if (this.percentage > 30){

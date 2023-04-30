@@ -16,7 +16,7 @@ class Character extends MovableObject {
     }
     end = false;
     characterDead = false;
-    energy = 50;
+    energy = 60;
     hitByEndboss = false;
 
 
