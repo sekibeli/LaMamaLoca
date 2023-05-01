@@ -48,6 +48,13 @@ lastHit = 0;
                     // && obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
 
     }
+
+    isCollidingEndboss(obj) {
+        // return  (this.x  + this.width - this.offset.right) >= (obj.x + obj.offset.left);
+        return this.x  + this.width + this.offset.right >= obj.x- obj.offset.left 
+    }
+               
+
     moveRight() {
         this.x += this.speed;
 
@@ -103,7 +110,7 @@ lastHit = 0;
 
     hit() {
         
-        this.energy -= 1;
+        this.energy -= 2;
         if (this.energy < 0) {
            this.energy = 0; 
         } else {

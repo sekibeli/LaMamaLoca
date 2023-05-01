@@ -121,7 +121,7 @@ class Character extends MovableObject {
                 // this.y = 230;
             }
 
-            if (this.world.keyboard.SPACE){
+            if (this.world.keyboard.SPACE) {
                 this.loadImage('images/Mage/Walk_Attack/walk_attack1.png');
             }
 
@@ -131,15 +131,18 @@ class Character extends MovableObject {
 
 
 
-       setInterval(() => {
+        setInterval(() => {
             if (this.isDead() && !this.end) {
-                this.playAnimationDead(this.IMAGES_DEAD, 'images/Mage/Death/death9.png' );
-               
-               this.end = true;
-            //    console.log(this.check);
+                world.stopGame();
+                console.log('1');
+                this.playAnimationDead(this.IMAGES_DEAD, 'images/Mage/Death/death9.png');
+                console.log('2');
+
+                this.end = true;
+                //    console.log(this.check);
 
             }
-             else if (this.isHurt() && !this.characterDead || this.hitByEndboss) {
+            else if (this.isHurt() && !this.characterDead || this.hitByEndboss) {
                 this.playAnimation(this.IMAGES_HURT);
                 // this.loadImage('images/Mage/Walk/walk1.png');
                 this.hitByEndboss = false;
@@ -151,13 +154,13 @@ class Character extends MovableObject {
 
                 if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.characterDead) {
                     // walk animation
-                    console.log(this.energy);
+                    
                     this.playAnimation(this.IMAGES_WALKING);
                 } else {
                     // this.playAnimation(this.IMAGES_IDLING);
-                   
-                    
-                    
+
+
+
                 }
             }
 
@@ -166,5 +169,17 @@ class Character extends MovableObject {
 
     jump() {
         this.speedY = 28;
+    }
+
+    endbossHit() {
+        this.speedY = 15;
+        this.applyGravity();
+       
+       let pushback = setInterval(() => {
+            this.x -= 25;
+            if(this.y == 230) clearInterval(pushback);
+        }
+            , 10);
+
     }
 } 

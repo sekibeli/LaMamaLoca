@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>La Mama Loca</title>
+  
     <script src="models/drawable-object.class.js"></script>
     <script src="models/movable-object.class.js"></script>
     <script src="models/throwable-object.class.js"></script>
@@ -34,21 +35,29 @@
     <script src="models/level.class.js"></script>
     <script src="levels/level1.js"></script>
     
-   
-    
     <script src="js/game.js"></script>
+    
+ 
    
    
      
 </head>
 <body>
+   
     
-    <canvas id="canvas" class="d-none" width="720px" height="480px"></canvas>
-    <div id="startScreen">
-        <button id="start" class="button" onclick="init()">
-            Start
-        </button>
+    <div class="main">
+        <div id="explanation">Move right &#8594; | Move left &#8592;| Jump D | Throw Apple SPACE</div>
+        <div id="startScreen" class="box" width="720px" height="480px">
+            <button id="start" class="button" onclick="init()">
+                Start
+            </button>
+        </div>
+        <div id="youwon" class="d-none box"><img class="boxImage" src="./images/youwon.png" alt=""></div>
+        <div id="youlost" class="d-none box"><img class="boxImage" src="./images/youlost.png" alt=""></div>
+        <canvas id="canvas" class="d-none" width="720px" height="480px"></canvas>
+
     </div>
+   
 
 </body>
 </html>

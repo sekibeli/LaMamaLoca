@@ -89,7 +89,7 @@ animationStop;
     }
 
     animate() {
-        this.animationStop =  setInterval(() => {
+       setInterval(() => {
             this.endbossMoves();
             world.checkIfEndbossIsDead();
 
