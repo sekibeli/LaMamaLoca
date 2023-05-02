@@ -10,7 +10,7 @@ class Endboss extends MovableObject {
     }
     speed = 25;
     amountAppleHits = 0;
-    dead = false;
+    endbossDead = false;
     end = false;
     energy = 60;
 animationStop;
@@ -89,27 +89,30 @@ animationStop;
     }
 
     animate() {
-       setInterval(() => {
+       setStoppableInterval(() => {
             this.endbossMoves();
-            world.checkIfEndbossIsDead();
+            // world.checkIfEndbossIsDead();
 
 
         }, 200);
     }
 
     endbossMoves() {
-        if (this.dead) {
-            this.playAnimation(this.IMAGES_DEATH);
+        if (this.endbossDead) {
+            // stopGame();
+            console.log('play dead endboss:');
+            this.playAnimationOnce(this.IMAGES_DEATH);
+            world.showEndScreen();
           
         }
 
-        else if (!this.hitWithApple && !this.dead) {
+        else if (!this.hitWithApple && !this.endbossDead) {
             this.otherDirection = true;
             this.playAnimation(this.IMAGES_IDLE);
 
 
         }
-        else if (this.seeEndboss() && !this.dead) {
+        else if (this.seeEndboss() && !this.endbossDead) {
             this.playAnimation(this.IMAGES_WALKING);
             this.moveLeft();
             //    this.playAnimation(this.IMAGES_ATTACK);

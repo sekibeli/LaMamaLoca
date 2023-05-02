@@ -21,7 +21,7 @@ class World {
     i = 0;
     // hitByEndboss = false;
     // runningInterval;
-    intervalIDs = [];
+    // intervalIDs = [];
 
     constructor(canvas, keyboard) {
         this.canvas = canvas;
@@ -39,71 +39,64 @@ class World {
 
     run() {
 
-        this.setStoppableInterval(() => {
+        setStoppableInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
             this.checkIfEndbossHitsCharacter();
-            this.checkIfGameIsOver();
+           
 
-        }, 200);
+        }, 100);
 
     }
 
 
-
-    setStoppableInterval(fn, time) {
-        let id = setInterval(fn, time);
-        this.intervalIDs.push(id);
-    }
-
-
-
-
-    stopGame() {
-        this.intervalIDs.forEach(clearInterval);
-    }
 
     checkThrowObjects() {
 
         if (this.keyboard.SPACE) {
 
             if (this.throwableObjects.length > 0) {
-                this.throwableObjects[0].x = this.character.x + 100;
-                this.throwableObjects[0].y = this.character.y;
+                this.throwableObjects[0].x = this.character.x + 60;
+                this.throwableObjects[0].y = this.character.y + 110;
                 this.apple = this.throwableObjects[0];
 
                 this.apple.throw();
                 this.checkIfAppleCollidesWithEndboss(this.apple);
                 setTimeout(() => {
                     this.throwableObjects.splice(0, 1);
-                }, 500);
+                }, 400);
             }
         }
         this.setAppleAmount(this.throwableObjects.length);
     }
 
-    checkIfGameIsOver() {
-        if (!this.character.characterDead && this.level.endboss.dead) {
+    showEndScreen() {
+        if (this.level.endboss.endbossDead) {
           
-            this.stopGame();
+            stopGame();
+           
             setTimeout(() => {
                 document.getElementById('youwon').classList.remove('d-none');
                 document.getElementById('canvas').classList.add('d-none');
-            },2000);
+            },1000);
+           
            
         }
-        else if (this.character.characterDead && !this.level.endboss.dead) {
+        else if (this.character.characterDead) {
            
-            this.stopGame();
+           console.log(intervalIDs);
+            stopGame();
+           
 
             setTimeout(()=> {
                 document.getElementById('youlost').classList.remove('d-none');
             document.getElementById('canvas').classList.add('d-none');
             },1000);
-            
+           
         }
         else {
-           
+           console.log('else-Teil von showEndScreen');
+          
         }
     }
 
@@ -115,7 +108,7 @@ class World {
         this.level.enemies.forEach((enemy, i) => {
 
             if (this.character.isColliding(enemy)) {
-                // console.log('inderLuft: ', this.character.isAboveGround(), 'speedY ', this.character.speedY);
+              
                 if (this.character.isAboveGround() && this.character.speedY < 0) {
                     // this.character.invulnerable = true;
                     if (enemy instanceof Chicken) enemy.CHICKEN_SMASH.play();
@@ -129,7 +122,7 @@ class World {
                             this.level.enemies.splice(i, 1);
                         }
                         // this.character.invulnerable = false;
-                    }, 500);
+                    }, 200);
 
                 } else {
                     this.character.hit();
@@ -153,7 +146,7 @@ class World {
            
             this.character.endbossHit();
             this.character.energy -= 10;
-            console.log('endboss-hit', this.character.energy);
+            console.log('Marge wurde getroffen: Nur noch', this.character.energy, 'Energy übrig');
                                  
         }
 
@@ -182,13 +175,14 @@ class World {
 
 
     checkIfAppleCollidesWithEndboss(apple) {
-
-        this.setStoppableInterval(() => {
+console.log('endbossDead = ',this.level.endboss.endbossDead);
+        setStoppableInterval(() => {
 
             if (apple.isColliding(this.level.endboss) && !this.level.endboss.dead && this.level.endboss.energy > 0) {
 
-                // console.log('smasch', this.i);
+                
                 this.level.endboss.energy -= 15;
+                console.log('Endboss wurde getroffen. Nur noch', this.level.endboss.energy ,'Energy übrig');
 
                 this.level.endboss.hitWithApple = true;
                 this.level.endboss.amountAppleHits = this.level.endboss.amountAppleHits + 1;
@@ -200,10 +194,9 @@ class World {
                 this.healthBarEndboss.setPercentage(this.level.endboss.energy);
 
                 if (this.level.endboss.energy == 0) {
-
-                    // console.log('futschijama');
-                    this.level.endboss.dead = true;
-
+                  
+                    this.level.endboss.endbossDead = true;
+                    console.log('endbossDead = ',this.level.endboss.endbossDead);
                 }
 
             }
@@ -219,7 +212,7 @@ class World {
     }
 
     checkCollisionsCollect() {
-        setInterval(() => {
+        setStoppableInterval(() => {
             this.level.apple.forEach((ap, i) => {
 
                 if (this.character.isColliding(ap)) {

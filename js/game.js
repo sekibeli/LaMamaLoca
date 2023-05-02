@@ -3,7 +3,7 @@ let world;
 let gameHight = 480;
 let gameWidth = 720;
 let keyboard = new Keyboard();
-// let intervalIDs = [];
+let intervalIDs = [];
 
 
 function init() {
@@ -15,6 +15,20 @@ function init() {
 
 
 }
+
+function setStoppableInterval(fn, time) {
+    let id = setInterval(fn, time);
+    intervalIDs.push(id);
+}
+
+function stopGame() {
+    intervalIDs.forEach(clearInterval);
+    // clearAllIntervals();
+}
+
+function clearAllIntervals() {
+    for (let i = 1; i < 9999; i++) window.clearInterval(i);
+  }
 
 
 

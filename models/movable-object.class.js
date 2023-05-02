@@ -18,7 +18,7 @@ lastHit = 0;
     // constructor(x, y,) { }
 
     applyGravity() {
-        setInterval(() => {
+        setStoppableInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
@@ -67,7 +67,7 @@ lastHit = 0;
 
 
     animate() {
-        setInterval(() => {
+        setStoppableInterval(() => {
             let i = this.currentImage % this.IMAGES_WALKING.length;
             let path = this.IMAGES_WALKING[i];
             this.img = this.imageCache[path];
@@ -93,11 +93,25 @@ lastHit = 0;
       
         let path = images[i];
         this.img = this.imageCache[path];
+  
+        console.log(i, this.img);
+        
+        }
+         
+        
+    }
+
+    playAnimationOnce(images) {
+    
+        for (let i = 0; i <images.length; i++){
+      
+        let path = images[i];
+        this.img = this.imageCache[path];
         console.log(i, this.img);
    
           
         }
-        // this.loadImage(image);
+       
         
         
     }

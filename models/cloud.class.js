@@ -13,7 +13,7 @@ y = 30;
     }
 
     cloudsAreMoving(){
-        setInterval(() => {
+        setStoppableInterval(() => {
             this.moveLeft();
         }, 1000 / 60);
        

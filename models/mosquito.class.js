@@ -20,12 +20,12 @@ class Mosquito extends MovableObject {
     }
 
     animate() {
-        setInterval(() => {
+        setStoppableInterval(() => {
             this.moveRight();
         }, 1000 / 60);
 
 
-        setInterval(() => {
+        setStoppableInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);
         }, 200);
     }

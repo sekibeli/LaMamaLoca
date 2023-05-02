@@ -18,7 +18,7 @@ class Character extends MovableObject {
     characterDead = false;
     energy = 60;
     hitByEndboss = false;
-
+animations;
 
 
     IMAGES_WALKING = [
@@ -29,6 +29,16 @@ class Character extends MovableObject {
         'images/Mage/Walk/walk5.png',
         'images/Mage/Walk/walk6.png'
     ];
+
+    IMAGES_ATTACK = [
+        // 'images/Mage/Attack/attack1.png',
+        // 'images/Mage/Attack/attack2.png',
+        // 'images/Mage/Attack/attack3.png',
+        // 'images/Mage/Attack/attack4.png',
+        // 'images/Mage/Attack/attack5.png',
+        // 'images/Mage/Attack/attack6.png',
+        'images/Mage/Attack/attack7.png'
+    ]
 
     IMAGES_JUMPING = [
         'images/Mage/Jump/jump1.png',
@@ -92,79 +102,89 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_IDLING);
+        this.loadImages(this.IMAGES_ATTACK);
 
         this.applyGravity();
         this.animate();
+       
 
     }
 
+    // characterMove(){
+    //    setInterval(() => {
+    //     this.characterAttack();
+    //    },300);
+    // }
+
+    // characterAttack(){
+    //      if (this.world.keyboard.SPACE) {
+    //            this.playAnimationOnce(this.IMAGES_ATTACK);
+    //         }
+    // }
+
+
+    characterMove() {
+        this.CHAR_WALKING.pause();
+        if (this.world.keyboard.RIGHT && this.x <= this.world.level.level_end_x && !this.characterDead) {
+            this.moveRight();
+            this.otherDirection = false;
+            this.CHAR_WALKING.play();
+
+        }
+
+        if (this.world.keyboard.LEFT && this.x > 0 && !this.characterDead) {
+            this.moveLeft();
+            this.otherDirection = true;
+            this.CHAR_WALKING.play();
+
+        }
+
+        if (this.world.keyboard.D && !this.isAboveGround() && !this.characterDead) {
+            this.jump();
+        }
+
+        // if (this.world.keyboard.SPACE) {
+        //    this.playAnimationOnce(this.IMAGES_ATTACK);
+        // }
+
+        this.world.camera_x = -this.x + 100;
+    }
+
+    characterAnimation(){
+       
+        if (this.characterDead && !this.end) {
+                          
+            // stopGame();
+            console.log(intervalIDs);
+            this.playAnimationOnce(this.IMAGES_DEAD);
+            this.end = true;
+            world.showEndScreen();
+        }
+        else if (this.isHurt() && !this.characterDead || this.hitByEndboss) {
+            this.playAnimation(this.IMAGES_HURT);
+            this.hitByEndboss = false;
+        }
+        else if (this.isAboveGround()) {
+            this.playAnimation(this.IMAGES_JUMPING);
+            this.CHAR_JUMPING.play();
+        } else {
+
+            if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.characterDead) {
+                this.playAnimation(this.IMAGES_WALKING);
+            }
+        }
+    }
 
     animate() {
-        setInterval(() => {
-            this.CHAR_WALKING.pause();
-            if (this.world.keyboard.RIGHT && this.x <= this.world.level.level_end_x && !this.characterDead) {
-                this.moveRight();
-                this.otherDirection = false;
-                this.CHAR_WALKING.play();
-
-            }
-
-            if (this.world.keyboard.LEFT && this.x > 0 && !this.characterDead) {
-                this.moveLeft();
-                this.otherDirection = true;
-                this.CHAR_WALKING.play();
-
-            }
-
-            if (this.world.keyboard.D && !this.isAboveGround() && !this.characterDead) {
-                this.jump();
-                // this.y = 230;
-            }
-
-            if (this.world.keyboard.SPACE) {
-                this.loadImage('images/Mage/Walk_Attack/walk_attack1.png');
-            }
-
-            this.world.camera_x = -this.x + 100;
+        setStoppableInterval(() => {
+            this.characterMove();
         }, 1000 / 60);
 
-
-
-
-        setInterval(() => {
-            if (this.isDead() && !this.end) {
-                world.stopGame();
-                console.log('1');
-                this.playAnimationDead(this.IMAGES_DEAD, 'images/Mage/Death/death9.png');
-                console.log('2');
-
-                this.end = true;
-                //    console.log(this.check);
-
-            }
-            else if (this.isHurt() && !this.characterDead || this.hitByEndboss) {
-                this.playAnimation(this.IMAGES_HURT);
-                // this.loadImage('images/Mage/Walk/walk1.png');
-                this.hitByEndboss = false;
-            }
-            else if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMPING);
-                this.CHAR_JUMPING.play();
-            } else {
-
-                if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.characterDead) {
-                    // walk animation
-                    
-                    this.playAnimation(this.IMAGES_WALKING);
-                } else {
-                    // this.playAnimation(this.IMAGES_IDLING);
-
-
-
-                }
-            }
-
-        }, 100);
+    //    setStoppableInterval(this.characterMove(), 1000/60) ;
+     
+       setStoppableInterval(() => {
+            this.characterAnimation();
+        }, 200);
     }
 
     jump() {
@@ -174,10 +194,10 @@ class Character extends MovableObject {
     endbossHit() {
         this.speedY = 15;
         this.applyGravity();
-       
-       let pushback = setInterval(() => {
+
+        let pushback = setInterval(() => {
             this.x -= 25;
-            if(this.y == 230) clearInterval(pushback);
+            if (this.y == 230) clearInterval(pushback);
         }
             , 10);
 
