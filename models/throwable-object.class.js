@@ -18,11 +18,20 @@ throw(){
   
 this.speedY = 15;
 this.applyGravity();
-setInterval(() => {
-     this.x += 15;
-       }
-, 10);
 
+if (!world.character.otherDirection){
+    
+    setInterval(() => {
+    this.x += 15;
+      }
+, 10);}
+
+else {
+    setInterval(() => {
+        this.x -= 15;
+          }
+    , 10); 
+}
 }
 
 

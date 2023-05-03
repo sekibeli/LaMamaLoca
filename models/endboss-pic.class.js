@@ -3,7 +3,7 @@ class EndbossPic extends StatusBar {
    
 
     IMAGE = [
-        'img/7_statusbars/3_icons/icon_health_endboss.png'
+        'images/Imp/icon_health_real_endboss.png'
     ]
 
     constructor(){

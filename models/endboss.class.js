@@ -13,7 +13,7 @@ class Endboss extends MovableObject {
     endbossDead = false;
     end = false;
     energy = 60;
-animationStop;
+    animationStop;
 
 
     IMAGES_WALKING = [
@@ -60,14 +60,16 @@ animationStop;
     ]
 
     IMAGES_DEATH = [
-        'images/Imp/Impdeath1.png',
-        'images/Imp/Impdeath2.png',
-        'images/Imp/Impdeath3.png',
-        'images/Imp/Impdeath4.png',
+        // 'images/Imp/Impdeath1.png',
+        // 'images/Imp/Impdeath2.png',
+        // 'images/Imp/Impdeath3.png',
+        // 'images/Imp/Impdeath4.png',
         'images/Imp/Impdeath5.png',
         'images/Imp/Impdeath6.png',
         'images/Imp/Impdeath7.png',
-        'images/Imp/Impdeath8.png'
+        'images/Imp/Impdeath8.png',
+        'images/Imp/Impdeath9.png',
+        'images/Imp/Impdeath10.png'
     ]
 
 
@@ -89,21 +91,26 @@ animationStop;
     }
 
     animate() {
-       setStoppableInterval(() => {
+        setStoppableInterval(() => {
             this.endbossMoves();
             // world.checkIfEndbossIsDead();
 
 
-        }, 200);
+        }, 250);
     }
 
     endbossMoves() {
         if (this.endbossDead) {
-            // stopGame();
+            this.currentImage = 0;
             console.log('play dead endboss:');
-            this.playAnimationOnce(this.IMAGES_DEATH);
+            let playEndbossAnimation = setInterval(() => { this.playAnimation(this.IMAGES_DEATH) }, 250)
+            // setTimeout(() => {
+            //     clearInterval(playEndbossAnimation);
+            // }, 1000);
+
+
             world.showEndScreen();
-          
+
         }
 
         else if (!this.hitWithApple && !this.endbossDead) {

@@ -71,35 +71,21 @@ lastHit = 0;
             let i = this.currentImage % this.IMAGES_WALKING.length;
             let path = this.IMAGES_WALKING[i];
             this.img = this.imageCache[path];
-            this.currentImage++;
+                     this.currentImage++;
         }, 150);
 
     }
 
 
     playAnimation(images) {
-        
         let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCache[path];
-        
         this.currentImage++;
         
     }
 
-    playAnimationDead(images, image) {
-    
-        for (let i = 0; i <images.length; i++){
-      
-        let path = images[i];
-        this.img = this.imageCache[path];
-  
-        console.log(i, this.img);
-        
-        }
-         
-        
-    }
+   
 
     playAnimationOnce(images) {
     
@@ -116,12 +102,7 @@ lastHit = 0;
         
     }
 
-    // collect(item){
-    //     item++;
-    //             // this.amount_apples++;
-    //             console.log('einer mehr: ',item);
-    // }
-
+    
     hit() {
         
         this.energy -= 2;

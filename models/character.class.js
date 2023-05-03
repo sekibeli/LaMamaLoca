@@ -18,7 +18,7 @@ class Character extends MovableObject {
     characterDead = false;
     energy = 60;
     hitByEndboss = false;
-animations;
+    animations;
 
 
     IMAGES_WALKING = [
@@ -106,7 +106,7 @@ animations;
 
         this.applyGravity();
         this.animate();
-       
+
 
     }
 
@@ -143,20 +143,19 @@ animations;
             this.jump();
         }
 
-        // if (this.world.keyboard.SPACE) {
-        //    this.playAnimationOnce(this.IMAGES_ATTACK);
-        // }
+
 
         this.world.camera_x = -this.x + 100;
     }
 
-    characterAnimation(){
-       
+    characterAnimation() {
+
         if (this.characterDead && !this.end) {
-                          
-            // stopGame();
-            console.log(intervalIDs);
-            this.playAnimationOnce(this.IMAGES_DEAD);
+            this.currentImage = 0;
+            setInterval(() => {
+                this.playAnimation(this.IMAGES_DEAD);
+            }, 200);
+
             this.end = true;
             world.showEndScreen();
         }
@@ -167,7 +166,13 @@ animations;
         else if (this.isAboveGround()) {
             this.playAnimation(this.IMAGES_JUMPING);
             this.CHAR_JUMPING.play();
-        } else {
+        }
+
+        else if (this.world.keyboard.SPACE) {
+            this.playAnimation(this.IMAGES_ATTACK);
+
+        }
+        else {
 
             if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.characterDead) {
                 this.playAnimation(this.IMAGES_WALKING);
@@ -180,12 +185,20 @@ animations;
             this.characterMove();
         }, 1000 / 60);
 
-    //    setStoppableInterval(this.characterMove(), 1000/60) ;
-     
-       setStoppableInterval(() => {
+        //    setStoppableInterval(this.characterMove(), 1000/60) ;
+
+        setStoppableInterval(() => {
             this.characterAnimation();
+            this.checkIfCharacterIsDead();
         }, 200);
     }
+
+checkIfCharacterIsDead(){
+    if(this.energy <= 0){
+        this.characterAnimation();
+        return;
+    }
+}
 
     jump() {
         this.speedY = 28;

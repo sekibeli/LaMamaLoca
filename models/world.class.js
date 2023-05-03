@@ -43,6 +43,7 @@ class World {
             this.checkCollisions();
             this.checkThrowObjects();
             this.checkIfEndbossHitsCharacter();
+         
            
 
         }, 100);
@@ -73,25 +74,27 @@ class World {
     showEndScreen() {
         if (this.level.endboss.endbossDead) {
           
-            stopGame();
+            
            
             setTimeout(() => {
+                stopGame();
                 document.getElementById('youwon').classList.remove('d-none');
                 document.getElementById('canvas').classList.add('d-none');
-            },1000);
+            },2000);
            
            
         }
         else if (this.character.characterDead) {
            
-           console.log(intervalIDs);
-            stopGame();
+          
+            
            
 
             setTimeout(()=> {
+                stopGame();
                 document.getElementById('youlost').classList.remove('d-none');
             document.getElementById('canvas').classList.add('d-none');
-            },1000);
+            },2000);
            
         }
         else {
@@ -142,12 +145,12 @@ class World {
         // console.log('x - character: ', this.character.x + this.character.width + this.character.offset.right, 'x - endboss: ', this.level.endboss.x - this.level.endboss.offset.left);
         // console.log('x - character: ', this.character.x + this.character.offset.left, ' x - endboss: ', this.level.endboss.x + this.level.endboss.width - this.level.endboss.offset.right);
 
-        if (this.character.isCollidingEndboss(this.level.endboss)) {
+        if (this.character.isCollidingEndboss(this.level.endboss) && this.character.energy > 0) {
            
             this.character.endbossHit();
             this.character.energy -= 10;
             console.log('Marge wurde getroffen: Nur noch', this.character.energy, 'Energy übrig');
-                                 
+                this.character.playAnimation(this.character.IMAGES_HURT);                 
         }
 
         if ( this.character.energy <= 0){
@@ -156,10 +159,8 @@ class World {
             this.character.energy = 0;
         }
         this.healthBar.setPercentage(this.character.energy);
-        // setTimeout(() => {
-        //     this.character.hitByEndboss = false;
-        //     console.log('hit = false');
-        // }, 1000);
+      
+       
     }
 
 
@@ -206,10 +207,10 @@ console.log('endbossDead = ',this.level.endboss.endbossDead);
 
     }
 
-    playDeathAnimation() {
-        this.level.endboss.playAnimation(this.level.endboss.IMAGES_DEATH);
+    // playDeathAnimation() {
+    //     this.level.endboss.playAnimation(this.level.endboss.IMAGES_DEATH);
 
-    }
+    // }
 
     checkCollisionsCollect() {
         setStoppableInterval(() => {
@@ -229,6 +230,7 @@ console.log('endbossDead = ',this.level.endboss.endbossDead);
 
             this.level.coin.forEach((co, i) => {
                 if (this.character.isColliding(co)) {
+                 
                     co.MONEY_COLLECT.play();
 
                     this.collectableObjects.push(co);
@@ -241,18 +243,30 @@ console.log('endbossDead = ',this.level.endboss.endbossDead);
         }, 200);
     }
 
-    checkIfEndbossIsDead() {
-        if (!this.level.endboss.dead) {
+    // checkIfEndbossIsDead() {
+    //     if (!this.level.endboss.dead) {
 
-            if (this.level.endboss.energy == 0) {
-                this.level.endboss.dead = true;
-                this.end = true;
-                return true;
-            }
-        }
-        return false;
-    }
+    //         if (this.level.endboss.energy == 0) {
+    //             this.level.endboss.dead = true;
+    //             this.end = true;
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
 
+
+    // checkIfCharacterIsDead(){
+    //     if (!this.level.endboss.dead) {
+
+    //         if (this.level.endboss.energy == 0) {
+    //             this.level.endboss.dead = true;
+    //             this.end = true;
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -304,7 +318,7 @@ console.log('endbossDead = ',this.level.endboss.endbossDead);
         moveObj.draw(this.ctx);
         // moveObj.drawFrame(this.ctx);
 
-        moveObj.drawFrameOffset(this.ctx, moveObj.offset);
+        // moveObj.drawFrameOffset(this.ctx, moveObj.offset);
 
 
 
