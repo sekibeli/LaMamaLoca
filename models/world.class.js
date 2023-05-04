@@ -40,6 +40,7 @@ class World {
     run() {
 
         setStoppableInterval(() => {
+            detectMobileDevice();
             this.checkCollisions();
             this.checkThrowObjects();
             this.checkIfEndbossHitsCharacter();

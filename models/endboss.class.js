@@ -64,12 +64,15 @@ class Endboss extends MovableObject {
         // 'images/Imp/Impdeath2.png',
         // 'images/Imp/Impdeath3.png',
         // 'images/Imp/Impdeath4.png',
-        'images/Imp/Impdeath5.png',
+        // 'images/Imp/Impdeath5.png',
         'images/Imp/Impdeath6.png',
         'images/Imp/Impdeath7.png',
         'images/Imp/Impdeath8.png',
         'images/Imp/Impdeath9.png',
-        'images/Imp/Impdeath10.png'
+        'images/Imp/Impdeath10.png',
+        'images/Imp/Impdeath11.png',
+        'images/Imp/Impdeath12.png',
+        'images/Imp/Impdeath13.png'
     ]
 
 

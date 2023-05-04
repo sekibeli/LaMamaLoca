@@ -4,6 +4,7 @@ let gameHight = 480;
 let gameWidth = 720;
 let keyboard = new Keyboard();
 let intervalIDs = [];
+let mobileDevice;
 
 
 function init() {
@@ -12,6 +13,10 @@ function init() {
     initLevel();
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+    detectMobileDevice();
+    if ( mobileDevice){
+        document.getElementById('menueLayer').classList.remove('d-none');
+    }
 
 
 }
@@ -30,7 +35,22 @@ function clearAllIntervals() {
     for (let i = 1; i < 9999; i++) window.clearInterval(i);
   }
 
+//   function detectMobileDevice(){
+//     if (navigator.userAgent.toLowerCase().match(/mobile/i)) {
+//         document.getElementById('explanation').classList.add('d-none');
+//      }
+//   }
 
+  function detectMobileDevice(){
+ mobileDevice = false;
+    if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i)) {
+        document.getElementById('explanation').classList.add('d-none');
+      mobileDevice = true;
+     }
+     return mobileDevice;
+  }
+
+ 
 
 window.addEventListener('keydown', (e) => {
     if (e.keyCode == 38) keyboard.UP = true;

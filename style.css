@@ -1,15 +1,15 @@
 body {
     padding: 0;
     margin: 0;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-     background-image: url('images/bgPic4.jpg');
+    background-image: url('images/bgPic4.jpg');
     background-position: center;
     background-size: auto;
- 
+
     font-family: 'goofy', Arial, Helvetica, sans-serif;
 
 
@@ -17,22 +17,24 @@ body {
 
 #main {
     aspect-ratio: 720 / 480;
-    /* width: 100%;
-    height: 100%; */
+    max-width: 100%;
+    max-height: 100%;
     width: 720px;
 
 
-margin: 0;
+
+    margin: 0;
     /* height: 100vh; */
-    width: 720px;;
+    width: 720px;
+    ;
     display: flex;
     /* flex-direction: column; */
     align-items: center;
     justify-content: center;
-     background-image: url('images/bgPic4.jpg');
+    background-image: url('images/bgPic4.jpg');
     background-position: center;
     background-size: auto;
- 
+
     font-family: 'goofy', Arial, Helvetica, sans-serif;
 
 }
@@ -60,17 +62,53 @@ h1 {
 
 }
 
-.menueIcon {
-    background-color: darkblue;
-  
-    padding: 5px 10px 5px 10px;
-    /* width: 20px; */
-    height: 40px;
-    border-radius: 20%;
-    display: table-cell;
-text-align: center;
-  
+.menuePoints {
+    display: flex;
+    flex-direction: column;
 }
+
+.menueIcon {
+
+    height: 50px;
+
+}
+
+.menueLayer {
+   
+    font-size: 3em;;
+    margin-top: 100px;
+    width: 100%;
+    height: 50%;
+    background-color: rgba(127, 255, 212, 0.333);
+
+
+
+}
+
+#moveLeft {
+
+width: 50px;
+height: 50px;
+margin-bottom: 10px;
+    background-color: white;
+    border-radius: 100%;
+    text-align: center;
+}
+
+.mobileMenue {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    height: 150px;
+    left: 10px;
+    bottom: 0;
+    right: 10px;
+}
+
+.mobileMenueLeft {
+   margin-left: 20px;
+}
+
 @font-face {
     font-family: 'goofy';
     src: url('fonts/goofy.ttf') format('truetype');
@@ -80,13 +118,15 @@ text-align: center;
     max-width: 720px;
     max-height: 480px;
     border-radius: 20px;
-   
+
     /* height: auto; */
 }
+
 .boxImage {
     border-radius: 20px;
     box-shadow: 4px 2px 8px rgba(0, 0, 0, 0.5);
 }
+
 #youlost {
 
     border-radius: 20px;
@@ -96,6 +136,7 @@ text-align: center;
 }
 
 canvas {
+
     display: block;
     background-color: rgb(0, 0, 0);
     margin: auto;
@@ -104,13 +145,17 @@ canvas {
 }
 
 #startScreen {
+
     width: 720px;
     aspect-ratio: 720 / 480;
     /* max-width: 720px;
     max-height: 480px; */
     background-image: url(images/start1.png);
-    background-color: rgb(0, 0, 0);
-background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* background-color: rgb(0, 0, 0); */
+    /* background-size: contain; */
+    background-size: 100% 100%;
     border-radius: 20px;
     box-shadow: 4px 2px 8px rgba(0, 0, 0, 0.5);
 }
@@ -141,30 +186,56 @@ background-size: contain;
     canvas {
         width: 100%;
     }
-#startScreen {
-    width: 100%;
-    background-position: center;
+#explanation {
+    display: none;
 }
+
+    #startScreen {
+        border-radius: 0px;
+        width: 100vw;
+   
+        /* background-position: center; */
+    }
+
     #main {
         width: 100%
     }
-    #youwon {
+
+    .box {
         width: 100%;
-        background-position: center;
+        overflow: hidden;
     }
-    #youlost {
+
+    .boxImage {
         width: 100%;
-        background-position: center;
+        border-radius: 0;
+    }
+    #youwon {
+        border-radius: 0;
+    }
+
+    #youlost {
+        border-radius: 0;
     }
 
 }
 
 @media only screen and (max-height: 480px) {
+.boxImage {
+    height: auto;
+}
+
     canvas {
         height: 100vh;
     }
+
     #main {
-        height: 100%
+        height: 100vh;
     }
-   
+
+    .box {
+        height: 100vh;
+        overflow: hidden;
+    }
+
 }
