@@ -50,7 +50,7 @@
 
 <body>
 
-
+<!-- <div id="fullscreen"> -->
     <div class="main">
         <div id="explanation">
             <div class="menuePoints">
@@ -87,25 +87,26 @@
         </div>
         <div id="youwon" class="d-none box"><img class="boxImage" src="./images/youwon.png" alt=""></div>
         <div id="youlost" class="d-none box"><img class="boxImage" src="./images/youlost.png" alt=""></div>
-        <div id="menueLayer" class="menueLayer d-none">
-            <div class="mobileMenue">
-                <div class="mobileMenueLeft">
-                    <div id="jumpUp">^</div>
-                    <div id="moveLeft">&#60;</div>
-                   
-                </div>
-                <div class="mobileMenueRight">
-                    <div id="mobileThrow"></div>
-                    <div id="moveRight">&#62;</div>
-                </div>
-            </div>
-        </div>
+        
         <canvas id="canvas" class="d-none" width="720px" height="480px">
            
         </canvas>
-       
+        <div id="mobileButtonsLayer" class="mobileButtonsLayer d-none">
+            <div class="mobileMenue">
+                <div class="mobileMenueLeft">
+                    <div class="mobileMove" id="btnMoveLeft"><img src="images/btnleft.png" alt=""></div> 
+                    <div class="mobileMove"   id="btnMoveRight"><img src="images/btnright.png" alt=""></div>
+                   
+                </div>
+                <div class="mobileMenueRight">
+                    <div class="mobileMove"    id="btnJumpUp"><img src="images/btnup.png" alt=""></div>
+                    <div class="mobileMove" id="btnMobileThrow"><img src="images/throwApple.png" alt=""></div> 
+                </div>
+            </div>
+        </div>
 
-
+</div>
+<!-- </div> -->
 </body>
 
 </html>

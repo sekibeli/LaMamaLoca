@@ -40,7 +40,7 @@ class World {
     run() {
 
         setStoppableInterval(() => {
-            detectMobileDevice();
+            // detectMobileDevice();
             this.checkCollisions();
             this.checkThrowObjects();
             this.checkIfEndbossHitsCharacter();
@@ -79,6 +79,8 @@ class World {
            
             setTimeout(() => {
                 stopGame();
+                backgroundBirds.pause();
+                if(mobileDevice){ document.getElementById('mobileButtonsLayer').classList.add('d-none');}
                 document.getElementById('youwon').classList.remove('d-none');
                 document.getElementById('canvas').classList.add('d-none');
             },2000);
@@ -93,6 +95,8 @@ class World {
 
             setTimeout(()=> {
                 stopGame();
+                backgroundBirds.pause();
+                if(mobileDevice){ document.getElementById('mobileButtonsLayer').classList.add('d-none');}
                 document.getElementById('youlost').classList.remove('d-none');
             document.getElementById('canvas').classList.add('d-none');
             },2000);
