@@ -14,6 +14,7 @@ class Endboss extends MovableObject {
     end = false;
     energy = 60;
     animationStop;
+    ENDBOSS_DIES = new Audio ('audio/youWon.mp3');
 
 
     IMAGES_WALKING = [
@@ -103,31 +104,48 @@ class Endboss extends MovableObject {
     }
 
     endbossMoves() {
-        if (this.endbossDead) {
+        if (this.endbossDead && world.character.energy > 0) {
+            this.ENDBOSS_DIES.play();
             this.currentImage = 0;
-            console.log('play dead endboss:');
+            console.log('endboss dead');
             let playEndbossAnimation = setInterval(() => { this.playAnimation(this.IMAGES_DEATH) }, 250)
-            // setTimeout(() => {
-            //     clearInterval(playEndbossAnimation);
-            // }, 1000);
-
-
             world.showEndScreen();
-
         }
 
-        else if (!this.hitWithApple && !this.endbossDead) {
-            this.otherDirection = true;
-            this.playAnimation(this.IMAGES_IDLE);
+
+        // else if (!this.hitWithApple && !this.endbossDead && world.character.x < 3000) {
+        //     this.otherDirection = true;
+        //     this.playAnimation(this.IMAGES_IDLE);
 
 
-        }
-        else if (this.seeEndboss() && !this.endbossDead) {
+        // }
+        else if ( Math.abs(world.character.x - this.x) <= 700 && !this.endbossDead) {
+            console.log(Math.abs(world.character.x - this.x));
+            if (world.character.x < this.x && !world.character.characterDead ){
+                this.otherDirection = true;
             this.playAnimation(this.IMAGES_WALKING);
             this.moveLeft();
-            //    this.playAnimation(this.IMAGES_ATTACK);
+            }
+             
+            else if (0 < Math.abs(world.character.x - this.x) < 300 && world.character.energy <= 0){
+                console.log('characterdead -> idle');
+                this.playAnimation(this.IMAGES_IDLE);
+            }
 
 
+        }
+
+        else if( world.character.x >3000 && world.character.x < this.x){
+            console.log('walking');
+            this.otherDirection = true;
+            this.playAnimation(this.IMAGES_WALKING);
+            this.moveLeft(); 
+        }
+
+        else {
+            console.log('else Zweig');
+            this.otherDirection = true;
+            this.playAnimation(this.IMAGES_IDLE);
         }
 
         //   else if (world.character.x < this.x && !this.dead) {
@@ -160,9 +178,9 @@ class Endboss extends MovableObject {
 
 
 
-    seeEndboss() {
-        return (world.character.x > 3000 || this.hitWithApple)
-    }
+    // seeEndboss() {
+    //     return (world.character.x > 3000 || this.hitWithApple)
+    // }
 
 
 }

@@ -6,6 +6,7 @@ class Character extends MovableObject {
     speed = 3;
     CHAR_WALKING = new Audio('audio/walk.mp3');
     CHAR_JUMPING = new Audio('audio/littlejump.mp3');
+    CHAR_DYING = new Audio('audio/characterDies.mp3');
     check = 0;
     invulnerable = false;
     offset = {
@@ -150,7 +151,8 @@ class Character extends MovableObject {
 
     characterAnimation() {
 
-        if (this.characterDead && !this.end) {
+        if (this.characterDead && !this.end && this.world.level.endboss.energy > 0) {
+this.CHAR_DYING.play();
             this.currentImage = 0;
             setInterval(() => {
                 this.playAnimation(this.IMAGES_DEAD);
@@ -213,6 +215,8 @@ checkIfCharacterIsDead(){
             if (this.y == 230) clearInterval(pushback);
         }
             , 10);
+this.energy = 0;
+this.characterDead = true;
 
     }
 } 

@@ -1,9 +1,9 @@
-class EndbossPic extends StatusBar {
+class CharacterPic extends StatusBar {
     
    
 
     IMAGE = [
-        'images/Imp/icon_health_real_endboss.png'
+        'images/icon_health_real_character.png'
     ]
 
     constructor(){
@@ -11,7 +11,7 @@ class EndbossPic extends StatusBar {
         this.loadImage(this.IMAGE);
        
         this.x = 10;
-        this.y = 50;
+        this.y = 11;
         this.width = 60;
         this.height= 60;
     }

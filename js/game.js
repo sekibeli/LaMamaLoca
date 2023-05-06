@@ -6,7 +6,7 @@ let keyboard = new Keyboard();
 let intervalIDs = [];
 let mobileDevice;
 let backgroundBirds = new Audio('audio/backgroundbirds.mp3');
-
+let idScreens = ['startScreen','canvas-Container'];
 
 
 function init() {
@@ -114,11 +114,16 @@ function bindBtsPressEvents(){
     });
 }
 function fullscreen(){
-    let fullscreen = document.getElementById('fullscreen');
+  if (!mobileDevice){
+  idScreens.forEach(element => {
+    let fullscreen = document.getElementById(`${element}`);
    enterFullscreen(fullscreen);
+  });
+}
 }
 
 function enterFullscreen(element) {
+
     if(element.requestFullscreen) {
       element.requestFullscreen();
     } else if(element.msRequestFullscreen) {      // for IE11 (remove June 15, 2022)
@@ -129,6 +134,7 @@ function enterFullscreen(element) {
   }
 
   function exitFullscreen() {
+   
     if(document.exitFullscreen) {
       document.exitFullscreen();
     } else if(document.webkitExitFullscreen) {

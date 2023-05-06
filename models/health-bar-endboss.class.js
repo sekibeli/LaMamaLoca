@@ -20,8 +20,8 @@ class HealthBarEndboss extends StatusBar {
         this.loadImage('img/7_statusbars/1_statusbar/2_statusbar_health/orange/100.png');
         console.log('constructor Health Endboss');
         this.setPercentage(60);
-        this.x = 500;
-        this.y = 10;
+        this.x = 20;
+        this.y = 50;
         this.width = 200;
         this.height= 50;
     }

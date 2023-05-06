@@ -14,7 +14,12 @@ body {
 
 
 }
-
+#sideMenue img{
+    width: 30px;
+    height:30px;
+    border-radius: 5px;
+    cursor: pointer;
+}
 .main {
     position: relative;
     /* aspect-ratio: 720 / 480; */
@@ -86,21 +91,22 @@ h1 {
     width: 100%;
 
     background-color: rgba(127, 255, 212, 0.333);
-
-
-
 }
 
-.mobileMove img {
-    /* width: 50px;
-    height: 50px;
-    margin-bottom: 10px;
-    background-color: white;
-    border-radius: 100%;
-    text-align: center;
-    margin: 0 10px 20px 0;
-    border: 3px solid rgb(243, 126, 0); */
+#sideMenue {
+    position: absolute;
+top: 20px;
+    right: 0;
+    width: 50px;
 
+    
+}
+
+#sideMenue img:hover {
+    box-shadow: 4px 2px 8px rgba(0, 0, 0, 0.5);
+}
+.mobileMove img {
+   
     width: 50px;
     height: 50px;
 }
@@ -170,6 +176,9 @@ h1 {
     /* height: auto; */
 }
 
+#canvas-Container {
+ 
+}
 canvas {
 
     display: block;

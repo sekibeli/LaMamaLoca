@@ -7,6 +7,7 @@ class World {
     appleBar = new AppleBar();
     healthBarEndboss = new HealthBarEndboss();
     endbossPic = new EndbossPic();
+    characterPic = new CharacterPic();
     throwableObjects = [];
     collectableObjects = [];
     // energy = 60;
@@ -295,6 +296,7 @@ console.log('endbossDead = ',this.level.endboss.endbossDead);
         this.ctx.translate(-this.camera_x, 0);
 
         this.addToMap(this.healthBar);
+        this.addToMap(this.characterPic);
         this.addToMap(this.coinBar);
         this.addToMap(this.appleBar);
         this.addToMap(this.healthBarEndboss);
