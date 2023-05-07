@@ -41,12 +41,12 @@ class Spider extends MovableObject {
 
     animate() {
         setStoppableInterval(() => {
-            this.moveLeft();
+         if(!paused)   this.moveLeft();
         }, 1000 / 60);
 
 
         setStoppableInterval(() => {
-              this.playAnimation(this.IMAGES_WALKING);
+             if(!paused) this.playAnimation(this.IMAGES_WALKING);
 
              
             

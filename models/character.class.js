@@ -126,17 +126,17 @@ class Character extends MovableObject {
 
     characterMove() {
         this.CHAR_WALKING.pause();
-        if (this.world.keyboard.RIGHT && this.x <= this.world.level.level_end_x && !this.characterDead) {
+        if (this.world.keyboard.RIGHT && this.x <= this.world.level.level_end_x && !this.characterDead && !paused) {
             this.moveRight();
             this.otherDirection = false;
-            this.CHAR_WALKING.play();
+            if (sound) this.CHAR_WALKING.play();
 
         }
 
-        if (this.world.keyboard.LEFT && this.x > 0 && !this.characterDead) {
+        if (this.world.keyboard.LEFT && this.x > 0 && !this.characterDead && !paused) {
             this.moveLeft();
             this.otherDirection = true;
-            this.CHAR_WALKING.play();
+            if (sound) this.CHAR_WALKING.play();
 
         }
 
@@ -152,7 +152,7 @@ class Character extends MovableObject {
     characterAnimation() {
 
         if (this.characterDead && !this.end && this.world.level.endboss.energy > 0) {
-this.CHAR_DYING.play();
+           if(sound) this.CHAR_DYING.play();
             this.currentImage = 0;
             setInterval(() => {
                 this.playAnimation(this.IMAGES_DEAD);
@@ -167,7 +167,7 @@ this.CHAR_DYING.play();
         }
         else if (this.isAboveGround()) {
             this.playAnimation(this.IMAGES_JUMPING);
-            this.CHAR_JUMPING.play();
+            if (sound) this.CHAR_JUMPING.play();
         }
 
         else if (this.world.keyboard.SPACE) {
@@ -176,7 +176,7 @@ this.CHAR_DYING.play();
         }
         else {
 
-            if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.characterDead) {
+            if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.characterDead && !paused) {
                 this.playAnimation(this.IMAGES_WALKING);
             }
         }
@@ -195,12 +195,12 @@ this.CHAR_DYING.play();
         }, 200);
     }
 
-checkIfCharacterIsDead(){
-    if(this.energy <= 0){
-        this.characterAnimation();
-        return;
+    checkIfCharacterIsDead() {
+        if (this.energy <= 0) {
+            this.characterAnimation();
+            return;
+        }
     }
-}
 
     jump() {
         this.speedY = 28;
@@ -215,8 +215,8 @@ checkIfCharacterIsDead(){
             if (this.y == 230) clearInterval(pushback);
         }
             , 10);
-this.energy = 0;
-this.characterDead = true;
+        this.energy = 0;
+        this.characterDead = true;
 
     }
 } 

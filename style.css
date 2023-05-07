@@ -44,16 +44,31 @@ body {
     font-family: 'goofy', Arial, Helvetica, sans-serif;
 
 }
-
+#infoLayer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color:rgba(0, 0, 0, 0.654);
+    border-radius: 10px;
+    width: 200px;
+    z-index: 10;
+    color: white;
+}
 #explanation {
+    margin-top: 20px;
+    /* display: flex; */
+align-items: flex-end;
     color: white;
     font-size: 2em;
-    align-items: center;
+   flex-direction: column;
     display: flex;
-    justify-content: space-between;
+    
     margin-bottom: 10px;
 }
-
+.clickable {
+    cursor: pointer;
+}
 .d-none {
     display: none;
 }
@@ -166,21 +181,23 @@ top: 20px;
 .boxImage {
     border-radius: 20px;
     box-shadow: 4px 2px 8px rgba(0, 0, 0, 0.5);
+    width: 100%;
 }
 
 #youlost {
 
     border-radius: 20px;
-    max-height: 480px;
-    max-width: 720px;
-    /* height: auto; */
+    /* max-height: 480px;
+    max-width: 720px; */
+    height: auto;
+    width: 100%;
 }
 
 #canvas-Container {
  
 }
 canvas {
-
+    width: 100%;
     display: block;
     background-color: rgb(0, 0, 0);
     margin: auto;
@@ -190,7 +207,8 @@ canvas {
 
 #startScreen {
 
-    width: 720px;
+    /* width: 720px; */
+    width: 100%;
     aspect-ratio: 720 / 480;
     /* max-width: 720px;
     max-height: 480px; */
@@ -231,9 +249,7 @@ canvas {
         width: 100%;
     }
 
-    #explanation {
-        display: none;
-    }
+   
 
     #startScreen {
         border-radius: 0px;
@@ -289,9 +305,7 @@ canvas {
         height: 100vh;
         overflow: hidden;
     }
-    #explanation {
-        display: none;
-    }
+   
 
 }
 

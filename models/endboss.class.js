@@ -14,7 +14,7 @@ class Endboss extends MovableObject {
     end = false;
     energy = 60;
     animationStop;
-    ENDBOSS_DIES = new Audio ('audio/youWon.mp3');
+    ENDBOSS_DIES = new Audio ('audio/youWoncuttedShort.mp3');
 
 
     IMAGES_WALKING = [
@@ -105,7 +105,7 @@ class Endboss extends MovableObject {
 
     endbossMoves() {
         if (this.endbossDead && world.character.energy > 0) {
-            this.ENDBOSS_DIES.play();
+           if (sound) this.ENDBOSS_DIES.play();
             this.currentImage = 0;
             console.log('endboss dead');
             let playEndbossAnimation = setInterval(() => { this.playAnimation(this.IMAGES_DEATH) }, 250)
@@ -135,7 +135,7 @@ class Endboss extends MovableObject {
 
         }
 
-        else if( world.character.x >3000 && world.character.x < this.x){
+        else if( world.character.x >2720 && world.character.x < this.x){
             console.log('walking');
             this.otherDirection = true;
             this.playAnimation(this.IMAGES_WALKING);

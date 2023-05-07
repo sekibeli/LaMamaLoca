@@ -40,30 +40,32 @@
     <script src="js/game.js"></script>
   </head>
 
-  <body>
-    <!-- <div id="fullscreen"> -->
+  <body onload="detectMobileDevice()">
+   
     <div class="main" id="main">
-      <!-- <div id="explanation">
-        <div class="menuePoints">
-          <span>Move right</span>
-          <img class="menueIcon" src="images/right.png" alt="" />
+      <div id="infoLayer" class="d-none">
+        <div id="explanation">
+          <div class="menuePoints clickable" onclick="closeInfo()">X</div>
+          <div class="menuePoints">
+            <span>Move right</span>
+            <img class="menueIcon" src="images/right.png" alt="" />
+          </div>
+          <div class="menuePoints">
+            <span>Move left</span>
+            <img class="menueIcon" src="images/left.png" alt="" />
+          </div>
+          <div class="menuePoints">
+            <span>Jump</span>
+            <img class="menueIcon" src="images/jump.png" alt="" />
+          </div>
+          <div class="menuePoints">
+            <span>Throw Apple </span>
+            <img class="menueIcon" src="images/space.png" alt="" />
+          </div>
         </div>
-        <div class="menuePoints">
-          <span>Move left</span>
-          <img class="menueIcon" src="images/left.png" alt="" />
-        </div>
-        <div class="menuePoints">
-          <span>Jump</span>
-          <img class="menueIcon" src="images/jump.png" alt="" />
-        </div>
-        <div class="menuePoints">
-          <span>Throw Apple </span>
-          <img class="menueIcon" src="images/space.png" alt="" />
-        </div>
-      </div> -->
-
+      </div>
       <div id="startScreen" class="box" width="720px" height="480px">
-        <!-- <button id="start" class="button" onclick="init()">Start</button> -->
+      
       </div>
       <div id="youwon" class="d-none box">
         <img class="boxImage" src="./images/youwon.png" alt="" />
@@ -97,14 +99,35 @@
       </div>
 
       <div id="sideMenue">
-        <img src="images/play.png" onclick="init()"alt="" />
-        <img src="images/info.png" alt="">
-        <img src="images/tonan.png" alt="">
-        <img src="images/end.png" alt="">
-        <img src="images/pause.png" alt="">
-        <img src="images/menuBurger.png" alt="" />
+        <img id="0" src="images/play.png" onclick="init()" alt="" />
+        <img id="1" src="images/info.png" onclick="showInfo()" />
+        <img
+          id="2"
+          class="d-none"
+          src="images/tonan.png"
+          onclick="toggleSound()"
+          alt=""
+        />
+        <img
+          id="3"
+          class="d-none"
+          src="images/tonoff.png"
+          onclick="toggleSound()"
+          alt=""
+        />
+        <img id="4" class="d-none" src="images/end.png" alt="" onclick="stopGame()" />
+        <img
+          id="5"
+          class="d-none"
+          src="images/pause.png"
+          onclick="togglePause()"
+          alt=""
+        />
+        <img id="6" class="d-none" src="images/menuBurger.png" alt="" onclick="stopGame()" />
+        <img id="7" src="images/bigger.png" onclick="fullscreen()" alt="" />
+        <img id="8" class="d-none" src="images/smaller.png" onclick="exitFullscreen()" alt="" />
       </div>
     </div>
-    <!-- </div> -->
+   
   </body>
 </html>

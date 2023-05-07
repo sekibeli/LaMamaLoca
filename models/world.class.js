@@ -45,8 +45,8 @@ class World {
             this.checkCollisions();
             this.checkThrowObjects();
             this.checkIfEndbossHitsCharacter();
-         
-           
+
+
 
         }, 100);
 
@@ -74,39 +74,52 @@ class World {
     }
 
     showEndScreen() {
-        if (this.level.endboss.endbossDead) {
-          
-            
-           
+        if (this.level.endboss.endbossDead && this.level.endboss.energy == 0) {
+            gameFinished = true;
+
+
             setTimeout(() => {
-                stopGame();
-                backgroundBirds.pause();
-                if(mobileDevice){ document.getElementById('mobileButtonsLayer').classList.add('d-none');}
+
+                gameEnd();
+
+                if (mobileDevice) { document.getElementById('mobileButtonsLayer').classList.add('d-none'); }
                 document.getElementById('youwon').classList.remove('d-none');
                 document.getElementById('canvas').classList.add('d-none');
-            },2000);
-           
-           
-        }
-        else if (this.character.characterDead) {
-           
+                document.getElementById('2').classList.add('d-none');
+                document.getElementById('3').classList.add('d-none');
+                document.getElementById('4').classList.add('d-none');
+                document.getElementById('5').classList.add('d-none');
+                document.getElementById('6').classList.remove('d-none');
+                document.getElementById('0').classList.remove('d-none');
+            }, 2000);
+            setTimeout(() => {
+                stopSoundAtTheEnd();
+            }, 5000);
           
-            
-           
 
-            setTimeout(()=> {
-                stopGame();
-                backgroundBirds.pause();
-                if(mobileDevice){ document.getElementById('mobileButtonsLayer').classList.add('d-none');}
+        }
+        else if (this.character.characterDead && this.character.energy <= 0) {
+            gameFinished = true;
+
+            setTimeout(() => {
+              
+                gameEnd();
+
+                if (mobileDevice) { document.getElementById('mobileButtonsLayer').classList.add('d-none'); }
                 document.getElementById('youlost').classList.remove('d-none');
-            document.getElementById('canvas').classList.add('d-none');
-            },2000);
-           
+                document.getElementById('canvas').classList.add('d-none');
+                document.getElementById('2').classList.add('d-none');
+                document.getElementById('3').classList.add('d-none');
+                document.getElementById('4').classList.add('d-none');
+                document.getElementById('5').classList.add('d-none');
+                document.getElementById('6').classList.remove('d-none');
+                document.getElementById('0').classList.remove('d-none');
+            }, 2000);
+            setTimeout(() => {
+                stopSoundAtTheEnd();
+            }, 5000);
         }
-        else {
-           console.log('else-Teil von showEndScreen');
-          
-        }
+        
     }
 
     setAppleAmount(amount) {
@@ -117,10 +130,12 @@ class World {
         this.level.enemies.forEach((enemy, i) => {
 
             if (this.character.isColliding(enemy)) {
-              
+
                 if (this.character.isAboveGround() && this.character.speedY < 0) {
                     // this.character.invulnerable = true;
-                    if (enemy instanceof Chicken) enemy.CHICKEN_SMASH.play();
+                    if (enemy instanceof Chicken) {
+                        if (sound) enemy.CHICKEN_SMASH.play();
+                    }
                     this.enemyAlive = false;
                     this.enemyIsDying(enemy);
                     this.character.jump();
@@ -152,21 +167,21 @@ class World {
         // console.log('x - character: ', this.character.x + this.character.offset.left, ' x - endboss: ', this.level.endboss.x + this.level.endboss.width - this.level.endboss.offset.right);
 
         if (this.character.isCollidingEndboss(this.level.endboss) && this.character.energy > 0) {
-           
+
             this.character.endbossHit();
             this.character.energy -= 10;
             console.log('Marge wurde getroffen: Nur noch', this.character.energy, 'Energy übrig');
-                this.character.playAnimation(this.character.IMAGES_HURT);                 
+            this.character.playAnimation(this.character.IMAGES_HURT);
         }
 
-        if ( this.character.energy <= 0){
+        if (this.character.energy <= 0) {
             this.characterDead = true;
             this.end = true;
             this.character.energy = 0;
         }
         this.healthBar.setPercentage(this.character.energy);
-      
-       
+
+
     }
 
 
@@ -182,14 +197,14 @@ class World {
 
 
     checkIfAppleCollidesWithEndboss(apple) {
-console.log('endbossDead = ',this.level.endboss.endbossDead);
+        console.log('endbossDead = ', this.level.endboss.endbossDead);
         setStoppableInterval(() => {
 
             if (apple.isColliding(this.level.endboss) && !this.level.endboss.dead && this.level.endboss.energy > 0) {
 
-                
+
                 this.level.endboss.energy -= 15;
-                console.log('Endboss wurde getroffen. Nur noch', this.level.endboss.energy ,'Energy übrig');
+                console.log('Endboss wurde getroffen. Nur noch', this.level.endboss.energy, 'Energy übrig');
 
                 this.level.endboss.hitWithApple = true;
                 this.level.endboss.amountAppleHits = this.level.endboss.amountAppleHits + 1;
@@ -201,9 +216,9 @@ console.log('endbossDead = ',this.level.endboss.endbossDead);
                 this.healthBarEndboss.setPercentage(this.level.endboss.energy);
 
                 if (this.level.endboss.energy == 0) {
-                  
+
                     this.level.endboss.endbossDead = true;
-                    console.log('endbossDead = ',this.level.endboss.endbossDead);
+                    console.log('endbossDead = ', this.level.endboss.endbossDead);
                 }
 
             }
@@ -223,7 +238,7 @@ console.log('endbossDead = ',this.level.endboss.endbossDead);
             this.level.apple.forEach((ap, i) => {
 
                 if (this.character.isColliding(ap)) {
-                    ap.APPLE_BITE.play();
+                    if (sound) ap.APPLE_BITE.play();
 
                     this.throwableObjects.push(ap);
                     this.appleBar.amount_apples = this.throwableObjects.length;
@@ -236,8 +251,8 @@ console.log('endbossDead = ',this.level.endboss.endbossDead);
 
             this.level.coin.forEach((co, i) => {
                 if (this.character.isColliding(co)) {
-                 
-                    co.MONEY_COLLECT.play();
+
+                    if (sound) co.MONEY_COLLECT.play();
 
                     this.collectableObjects.push(co);
                     this.coinBar.amount_coins = this.collectableObjects.length;
