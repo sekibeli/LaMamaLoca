@@ -32,6 +32,9 @@ class World {
         this.setWorld();
         this.run();
         this.checkCollisionsCollect();
+
+;
+       
     }
 
     setWorld() {
@@ -71,6 +74,7 @@ class World {
             }
         }
         this.setAppleAmount(this.throwableObjects.length);
+
     }
 
     showEndScreen() {

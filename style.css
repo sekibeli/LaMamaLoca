@@ -22,7 +22,7 @@ body {
 }
 .main {
     position: relative;
-    /* aspect-ratio: 720 / 480; */
+    aspect-ratio: 720 / 480;
     max-width: 100%;
     max-height: 100%;
     width: 720px;
@@ -54,6 +54,13 @@ body {
     width: 200px;
     z-index: 10;
     color: white;
+    animation: slideIn .3s ease-in;
+}
+
+
+@keyframes slideIn {
+0% {width: 0;}
+100% {width: 200px;}
 }
 #explanation {
     margin-top: 20px;
@@ -63,8 +70,20 @@ align-items: flex-end;
     font-size: 2em;
    flex-direction: column;
     display: flex;
-    
+    animation: fadeItin 0.5s ease-in;
     margin-bottom: 10px;
+}
+
+@keyframes fadeItin {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 .clickable {
     cursor: pointer;
@@ -171,10 +190,11 @@ top: 20px;
 }
 
 #youwon {
-    max-width: 720px;
-    max-height: 480px;
+    /* max-width: 720px;
+    max-height: 480px; */
     border-radius: 20px;
-
+    height: auto;
+    width: 100%;
     /* height: auto; */
 }
 
@@ -193,9 +213,7 @@ top: 20px;
     width: 100%;
 }
 
-#canvas-Container {
- 
-}
+
 canvas {
     width: 100%;
     display: block;
@@ -203,6 +221,7 @@ canvas {
     margin: auto;
     border-radius: 20px;
     box-shadow: 4px 2px 8px rgba(0, 0, 0, 0.5);
+    aspect-ratio: 720 / 480;
 }
 
 #startScreen {

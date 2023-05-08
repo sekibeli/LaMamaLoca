@@ -14,25 +14,27 @@ class ThrowableObject extends MovableObject {
 speedX = 30;
     
 
+
 throw(){
-  
-this.speedY = 15;
+    this.speedY = 15;
 this.applyGravity();
-
-if (!world.character.otherDirection){
-    
-    setInterval(() => {
-    this.x += 15;
-      }
-, 10);}
-
-else {
-    setInterval(() => {
+let flyingApple = setInterval(()=> {
+    if(!world.character.otherDirection)
+    {
+        this.x += 15;
+    }
+    else {
         this.x -= 15;
-          }
-    , 10); 
+    }
+},10);
+
+
+
+
+
 }
+
 }
 
 
-}
+
