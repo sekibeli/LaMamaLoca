@@ -66,7 +66,10 @@ class World {
                 this.throwableObjects[0].y = this.character.y + 110;
                 this.apple = this.throwableObjects[0];
 
-                this.apple.throw();
+              
+                    this.apple.throw();
+                
+             
                 this.checkIfAppleCollidesWithEndboss(this.apple);
                 setTimeout(() => {
                     this.throwableObjects.splice(0, 1);
@@ -139,6 +142,10 @@ class World {
                     // this.character.invulnerable = true;
                     if (enemy instanceof Chicken) {
                         if (sound) enemy.CHICKEN_SMASH.play();
+                        
+                    }
+                    if (enemy instanceof Spider){
+                        if(sound) enemy.SPIDER_DEAD.play();
                     }
                     this.enemyAlive = false;
                     this.enemyIsDying(enemy);
@@ -218,8 +225,13 @@ class World {
                 // console.log('endboss energy: ', this.level.endboss.energy);
 
                 this.healthBarEndboss.setPercentage(this.level.endboss.energy);
+                if(this.level.endboss.amountAppleHits == 2){
+                    this.level.endboss.currentImage = 0;
+                    let ouchi = setInterval(()=> {this.level.endboss.playAnimation(this.level.endboss.IMAGES_MUCHHURT);},300);
+                    setTimeout(clearInterval, 2000, ouchi);
+                }
 
-                if (this.level.endboss.energy == 0) {
+                else if (this.level.endboss.energy == 0) {
 
                     this.level.endboss.endbossDead = true;
                     console.log('endbossDead = ', this.level.endboss.endbossDead);
@@ -344,7 +356,7 @@ class World {
         moveObj.draw(this.ctx);
         // moveObj.drawFrame(this.ctx);
 
-        // moveObj.drawFrameOffset(this.ctx, moveObj.offset);
+        moveObj.drawFrameOffset(this.ctx, moveObj.offset);
 
 
 

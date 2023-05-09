@@ -1,7 +1,15 @@
 class Mosquito extends MovableObject {
     height = 110;
     width = 120;
-    // y = 190;
+   
+
+
+    offset = {
+        top: 30,
+        bottom: 30,
+        left: 30,
+        right: 30
+    }
     IMAGES_WALKING = [
         'images/mosquito/flight1.png',
         'images/mosquito/flight2.png',

@@ -17,11 +17,18 @@ function initLevel() {
         new Mosquito(),
         new Mosquito(),
         new Mosquito(),
+        new Spider(),
+        new Spider(),
+        new Spider(),
+        new Spider(),
        
        
     ],
     
     [
+        new Cloud(),
+        new Cloud(),
+        new Cloud(),
         new Cloud(),
         new Cloud(),
         new Cloud()

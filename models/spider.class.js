@@ -1,4 +1,6 @@
 class Spider extends MovableObject {
+
+    SPIDER_DEAD = new Audio('audio/spider_dead.mp3');
     speed = 0.35;
     height =90;
     width = 100;
@@ -40,9 +42,17 @@ class Spider extends MovableObject {
 
 
     animate() {
+
         setStoppableInterval(() => {
-         if(!paused)   this.moveLeft();
+         if(!paused) {
+            if(this.x > world.character.x) {this.moveLeft()}
+            else {this.moveRight()}
+         }
+         
+
+        //  this.moveLeft();
         }, 1000 / 60);
+
 
 
         setStoppableInterval(() => {

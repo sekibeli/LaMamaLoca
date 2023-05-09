@@ -17,6 +17,7 @@ let timer;
 
 function init() {
   if (!sound) sound = true;
+  clearInterval(idle);
   document.getElementById('canvas').classList.remove('d-none');
   document.getElementById('startScreen').classList.add('d-none');
 
@@ -265,10 +266,10 @@ function stopGame() {
   if (!document.getElementById('youlost').classList.contains('d-none')) document.getElementById('youlost').classList.add('d-none');
   if (!document.getElementById('youwon').classList.contains('d-none')) document.getElementById('youwon').classList.add('d-none');
 
-
+  clearInterval(idle);
   removeEventListener("keyup", debounce(doNothing, 3500));
   removeEventListener("touchstart", debounce(doNothing, 3500));
-  removeEventListener("click", debounce(doNothing, 3500));
+  // removeEventListener("click", debounce(doNothing, 3500));
 
 }
 
@@ -281,14 +282,20 @@ function setMenuStartScreen() {
   document.getElementById('4').classList.add('d-none');
   document.getElementById('5').classList.add('d-none');
   document.getElementById('6').classList.add('d-none');
-  document.getElementById('8').classList.add('d-none');
+  if( window.innerHeight == screen.height && !(mobileDevice || isIpadOS())) {
+    document.getElementById('7').classList.add('d-none');
+    document.getElementById('8').classList.remove('d-none');
+   console.log('FullscreenModus');
+}
+  
   if (mobileDevice || isIpadOS()) {
     document.getElementById('7').classList.add('d-none');
+    document.getElementById('mobileButtonsLayer').classList.add('d-none');
 
   }
   else {
-    document.getElementById('7').classList.remove('d-none');
-    document.getElementById('8').classList.add('d-none');
+    // document.getElementById('7').classList.remove('d-none');
+    // document.getElementById('8').classList.add('d-none');
   }
 }
 
@@ -315,7 +322,7 @@ const doNothing = () => {
 
 addEventListener("keyup", debounce(doNothing, 3500));
 addEventListener("touchstart", debounce(doNothing, 3500));
-addEventListener("click", debounce(doNothing, 3500));
+// addEventListener("click", debounce(doNothing, 3500));
 
 
 

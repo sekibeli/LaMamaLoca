@@ -12,7 +12,7 @@ class Endboss extends MovableObject {
     amountAppleHits = 0;
     endbossDead = false;
     end = false;
-    energy = 60;
+    energy = 90;
     animationStop;
     ENDBOSS_DIES = new Audio ('audio/youWoncuttedShort.mp3');
 
@@ -40,14 +40,7 @@ class Endboss extends MovableObject {
     ]
 
     IMAGES_IDLE = [
-        // 'img/4_enemie_boss_chicken/2_alert/G5.png',
-        // 'img/4_enemie_boss_chicken/2_alert/G6.png',
-        // 'img/4_enemie_boss_chicken/2_alert/G7.png',
-        // 'img/4_enemie_boss_chicken/2_alert/G8.png',
-        // 'img/4_enemie_boss_chicken/2_alert/G9.png',
-        // 'img/4_enemie_boss_chicken/2_alert/G10.png',
-        // 'img/4_enemie_boss_chicken/2_alert/G11.png',
-        // 'img/4_enemie_boss_chicken/2_alert/G12.png',
+       
         'images/Imp/Impidle1.png',
         'images/Imp/Impidle2.png',
         'images/Imp/Impidle3.png'
@@ -58,6 +51,14 @@ class Endboss extends MovableObject {
         'images/Imp/Imphurt3.png',
         'images/Imp/Imphurt4.png',
 
+    ]
+
+    IMAGES_MUCHHURT = [
+        'images/Imp/Imphurt4.png',
+        'images/Imp/Impmuchhurt1.png',
+        'images/Imp/Impmuchhurt2.png',
+        'images/Imp/Impmuchhurt3.png'
+       
     ]
 
     IMAGES_DEATH = [
@@ -87,6 +88,7 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEATH);
+        this.loadImages(this.IMAGES_MUCHHURT);
         this.hitWithApple = false;
         this.amountAppleHits = 0;
         this.x = 3500;

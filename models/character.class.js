@@ -7,6 +7,7 @@ class Character extends MovableObject {
     CHAR_WALKING = new Audio('audio/walk.mp3');
     CHAR_JUMPING = new Audio('audio/littlejump.mp3');
     CHAR_DYING = new Audio('audio/characterDies.mp3');
+    CHAR_HURT = new Audio('audio/hurt1.mp3');
     check = 0;
     invulnerable = false;
     offset = {
@@ -172,6 +173,7 @@ class Character extends MovableObject {
             world.showEndScreen();
         }
         else if (this.isHurt() && !this.characterDead || this.hitByEndboss) {
+            if(sound) this.CHAR_HURT.play();
             this.playAnimation(this.IMAGES_HURT);
             this.hitByEndboss = false;
         }
@@ -201,7 +203,7 @@ this.setTimer();
     }
 
     setTimer(){
-        setTimeout(clearInterval, 500, this.attack);
+        setTimeout(clearInterval, 700, this.attack);
     }
     animate() {
         setStoppableInterval(() => {
