@@ -8,6 +8,7 @@ class World {
     healthBarEndboss = new HealthBarEndboss();
     endbossPic = new EndbossPic();
     characterPic = new CharacterPic();
+    singleApple = new ThrowableObject();
     throwableObjects = [];
     collectableObjects = [];
     // energy = 60;
@@ -33,8 +34,8 @@ class World {
         this.run();
         this.checkCollisionsCollect();
 
-;
-       
+        ;
+
     }
 
     setWorld() {
@@ -66,10 +67,13 @@ class World {
                 this.throwableObjects[0].y = this.character.y + 110;
                 this.apple = this.throwableObjects[0];
 
-              
-                    this.apple.throw();
+
+                this.apple.throw();
+
+
                 
-             
+
+
                 this.checkIfAppleCollidesWithEndboss(this.apple);
                 setTimeout(() => {
                     this.throwableObjects.splice(0, 1);
@@ -102,14 +106,14 @@ class World {
             setTimeout(() => {
                 stopSoundAtTheEnd();
             }, 5000);
-          
+
 
         }
         else if (this.character.characterDead && this.character.energy <= 0) {
             gameFinished = true;
 
             setTimeout(() => {
-              
+
                 gameEnd();
 
                 if (mobileDevice) { document.getElementById('mobileButtonsLayer').classList.add('d-none'); }
@@ -126,7 +130,7 @@ class World {
                 stopSoundAtTheEnd();
             }, 5000);
         }
-        
+
     }
 
     setAppleAmount(amount) {
@@ -142,10 +146,10 @@ class World {
                     // this.character.invulnerable = true;
                     if (enemy instanceof Chicken) {
                         if (sound) enemy.CHICKEN_SMASH.play();
-                        
+
                     }
-                    if (enemy instanceof Spider){
-                        if(sound) enemy.SPIDER_DEAD.play();
+                    if (enemy instanceof Spider) {
+                        if (sound) enemy.SPIDER_DEAD.play();
                     }
                     this.enemyAlive = false;
                     this.enemyIsDying(enemy);
@@ -225,9 +229,9 @@ class World {
                 // console.log('endboss energy: ', this.level.endboss.energy);
 
                 this.healthBarEndboss.setPercentage(this.level.endboss.energy);
-                if(this.level.endboss.amountAppleHits == 2){
+                if (this.level.endboss.amountAppleHits == 2) {
                     this.level.endboss.currentImage = 0;
-                    let ouchi = setInterval(()=> {this.level.endboss.playAnimation(this.level.endboss.IMAGES_MUCHHURT);},300);
+                    let ouchi = setInterval(() => { this.level.endboss.playAnimation(this.level.endboss.IMAGES_MUCHHURT); }, 300);
                     setTimeout(clearInterval, 2000, ouchi);
                 }
 

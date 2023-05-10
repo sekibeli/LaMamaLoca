@@ -82,6 +82,7 @@ align-items: flex-end;
     margin: 15px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 1em;
+    animation: fadeItin 0.5s ease-in;
 }
 
 @keyframes fadeItin {
@@ -294,6 +295,14 @@ canvas {
     #youlost {
         border-radius: 0;
     }
+    #infoLayer {
+        width: 400px;
+    }
+
+    @keyframes slideIn {
+        0% {width: 0;}
+        100% {width: 400px;}
+        }
 
 }
 

@@ -6,6 +6,7 @@ class MovableObject extends DrawableObject{
     energy = 100;
     amount_apples = 0;
     amount_coins = 0;
+    currentImage = 0;
     offset = {
         top: 0,
         bottom: 0,
@@ -80,27 +81,32 @@ lastHit = 0;
     playAnimation(images) {
         let i = this.currentImage % images.length;
         let path = images[i];
+        try {
         this.img = this.imageCache[path];
+        } catch (e) {
+            console.log(e);
+            debugger;
+        }
         this.currentImage++;
         
     }
 
    
 
-    playAnimationOnce(images) {
+    // playAnimationOnce(images) {
     
-        for (let i = 0; i <images.length; i++){
+    //     for (let i = 0; i <images.length; i++){
       
-        let path = images[i];
-        this.img = this.imageCache[path];
-        console.log(i, this.img);
+    //     let path = images[i];
+    //     this.img = this.imageCache[path];
+    //     console.log(i, this.img);
    
           
-        }
+    //     }
        
         
         
-    }
+    // }
 
     
     hit() {

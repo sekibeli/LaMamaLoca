@@ -55,9 +55,9 @@ class Endboss extends MovableObject {
 
     IMAGES_MUCHHURT = [
         'images/Imp/Imphurt4.png',
-        'images/Imp/Impmuchhurt1.png',
-        'images/Imp/Impmuchhurt2.png',
-        'images/Imp/Impmuchhurt3.png'
+        'images/Imp/Impliohurt1.png',
+        'images/Imp/Impliohurt2.png',
+        'images/Imp/Impliohurt3.png'
        
     ]
 
@@ -145,7 +145,7 @@ class Endboss extends MovableObject {
         }
 
         else {
-            console.log('else Zweig');
+          
             this.otherDirection = true;
             this.playAnimation(this.IMAGES_IDLE);
         }

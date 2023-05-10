@@ -300,6 +300,7 @@ function setMenuStartScreen() {
 }
 
 function debounce(func, timeout) {
+
   timer;
   return (...args) => {
     clearTimeout(timer);
@@ -316,12 +317,14 @@ function checkIfPlayerPlays() {
 
 const doNothing = () => {
   console.log("Inaktivität");
-  idle = setInterval(() => { world.character.playAnimation(world.character.IMAGES_IDLING); }, 150);
+  idle = setInterval(() => { 
+    world.character.playAnimation(world.character.IMAGES_IDLING); 
+  }, 150);
 
 };
 
-addEventListener("keyup", debounce(doNothing, 3500));
-addEventListener("touchstart", debounce(doNothing, 3500));
+// addEventListener("keyup", debounce(doNothing, 3500));
+// addEventListener("touchstart", debounce(doNothing, 3500));
 // addEventListener("click", debounce(doNothing, 3500));
 
 
