@@ -1,4 +1,5 @@
 class Mosquito extends MovableObject {
+    MOSQUITO_CLAP = new Audio('audio/mosquitoClap.mp3');
     height = 110;
     width = 120;
    

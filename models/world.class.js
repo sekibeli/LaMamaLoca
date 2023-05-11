@@ -84,6 +84,8 @@ class World {
 
     }
 
+   
+
     showEndScreen() {
         if (this.level.endboss.endbossDead && this.level.endboss.energy == 0) {
             gameFinished = true;
@@ -151,9 +153,14 @@ class World {
                     if (enemy instanceof Spider) {
                         if (sound) enemy.SPIDER_DEAD.play();
                     }
+
+                    if(enemy instanceof Mosquito){
+                        if(sound) enemy.MOSQUITO_CLAP.play();
+                    }
                     this.enemyAlive = false;
                     this.enemyIsDying(enemy);
                     this.character.jump();
+                    // this.character.loadImage(this.character.IMAGES_WALKING[0]);
 
 
                     setTimeout(() => {
@@ -360,7 +367,7 @@ class World {
         moveObj.draw(this.ctx);
         // moveObj.drawFrame(this.ctx);
 
-        moveObj.drawFrameOffset(this.ctx, moveObj.offset);
+        // moveObj.drawFrameOffset(this.ctx, moveObj.offset);
 
 
 

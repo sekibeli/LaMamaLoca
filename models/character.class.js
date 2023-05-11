@@ -7,7 +7,7 @@ class Character extends MovableObject {
     CHAR_WALKING = new Audio('audio/walk.mp3');
     CHAR_JUMPING = new Audio('audio/littlejump.mp3');
     CHAR_DYING = new Audio('audio/characterDies.mp3');
-    CHAR_HURT = new Audio('audio/characterOuch.mp3');
+    CHAR_HURT = new Audio('audio/characterOuchlong.mp3');
     check = 0;
     invulnerable = false;
     offset = {
@@ -22,7 +22,8 @@ class Character extends MovableObject {
     hitByEndboss = false;
     animations;
     attack;
-
+    moving = false;
+    waiting = true;
 
 
 
@@ -36,13 +37,14 @@ class Character extends MovableObject {
     ];
 
     IMAGES_ATTACK = [
-        'images/Mage/Attack/attack1.png',
-        'images/Mage/Attack/attack2.png',
-        'images/Mage/Attack/attack3.png',
-        'images/Mage/Attack/attack4.png',
+       
+        // 'images/Mage/Attack/attack2.png',
+        // 'images/Mage/Attack/attack3.png',
+        // 'images/Mage/Attack/attack4.png',
         'images/Mage/Attack/attack5.png',
-        'images/Mage/Attack/attack6.png',
-        'images/Mage/Attack/attack7.png'
+        'images/Mage/Attack/attack1.png'
+        // 'images/Mage/Attack/attack6.png'
+        // 'images/Mage/Attack/attack7.png'
     ]
 
     IMAGES_JUMPING = [
@@ -114,46 +116,32 @@ class Character extends MovableObject {
 
     }
 
-    // characterMove(){
-    //    setInterval(() => {
-    //     this.characterAttack();
-    //    },300);
-    // }
-
-    // characterAttack(){
-    //      if (this.world.keyboard.SPACE) {
-    //            this.playAnimationOnce(this.IMAGES_ATTACK);
-    //         }
-    // }
-
 
     characterMove() {
-        if (checkIfPlayerPlays()) clearInterval(idle);
-        this.CHAR_WALKING.pause();
+        if (checkIfPlayerPlays()) {
+            clearInterval(idle);
+            
+            this.waiting = false;
+       }
+        // this.CHAR_WALKING.pause();
 
         if (this.world.keyboard.RIGHT && this.x <= this.world.level.level_end_x && !this.characterDead && !paused) {
             this.moveRight();
             this.otherDirection = false;
-
-            // if(!this.CHAR_WALKING.paused) this.CHAR_WALKING.play();
-            // if (sound)  this.CHAR_WALKING.play();
-
+           
         }
 
         if (this.world.keyboard.LEFT && this.x > 0 && !this.characterDead && !paused) {
             this.moveLeft();
             this.otherDirection = true;
-
-            // if (sound) this.CHAR_WALKING.play();
-            // if(!this.CHAR_WALKING.paused) this.CHAR_WALKING.play();
-
-
-
+           
         }
 
         if (this.world.keyboard.D && !this.isAboveGround() && !this.characterDead) {
             this.jump();
-            // if(!this.CHAR_JUMPING.paused) this.CHAR_JUMPING.play();
+           setTimeout(()=>{
+            this.loadImage(this.IMAGES_WALKING[0]);
+           },1000);
             if (sound) this.CHAR_JUMPING.play();
         }
 
@@ -167,7 +155,11 @@ class Character extends MovableObject {
     }
 
     characterAnimation() {
-        if (checkIfPlayerPlays() || this.isHurt()) clearInterval(idle);
+        if (checkIfPlayerPlays() || this.isHurt())  {
+        clearInterval(idle);
+        clearTimeout(this.waiting);
+        }
+
 
         if (this.characterDead && !this.end && this.world.level.endboss.energy > 0) {
             if (sound) this.CHAR_DYING.play();
@@ -175,17 +167,19 @@ class Character extends MovableObject {
             setInterval(() => {
                 this.playAnimation(this.IMAGES_DEAD);
             }, 200);
-
+            clearTimeout(this.waiting);
             this.end = true;
             world.showEndScreen();
         }
         else if (this.isHurt() && !this.characterDead || this.hitByEndboss) {
+            this.CHAR_HURT.loop = false;
             if (sound) this.CHAR_HURT.play();
             this.playAnimation(this.IMAGES_HURT);
             this.hitByEndboss = false;
+            
         }
         else if (this.isAboveGround()) {
-
+           
             this.playAnimation(this.IMAGES_JUMPING);
 
 
@@ -193,11 +187,14 @@ class Character extends MovableObject {
 
         else if (this.world.keyboard.SPACE) {
             this.currentImage = 0;
-            this.attack = setInterval(() => {
 
+            if(world.throwableObjects.length > 0){
+            this.attack = setInterval(() => {
+                
                 this.playAnimation(this.IMAGES_ATTACK);
             }, 100);
             this.setTimer();
+        }
 
 
 
@@ -205,25 +202,27 @@ class Character extends MovableObject {
         }
 
 
-        // else if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.characterDead && !paused)  this.playAnimation(this.IMAGES_WALKING);
-
+        
         else {
+            
 
-
-            if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.characterDead && !paused) this.playAnimation(this.IMAGES_WALKING);
+            if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.characterDead && !paused) {
+                                this.playAnimation(this.IMAGES_WALKING);
+               
+            }
 
             else {
-                this.loadImage(this.IMAGES_WALKING[0]);
-                let _this = this;
-                console.log('shit');
-                // if (!this.world.keyboard.RIGHT) setTimeout(_this.playAnimation, 5000, _this.IMAGES_IDLING);
-            }
+               
+                // if (!checkIfPlayerPlays() && this.energy > 0 && this.waiting) this.loadImage(this.IMAGES_WALKING[0]);
+              
+                }
+           
 
         }
     }
 
     setTimer() {
-        setTimeout(clearInterval, 700, this.attack);
+        setTimeout(clearInterval, 200, this.attack);
     }
     animate() {
         setStoppableInterval(() => {

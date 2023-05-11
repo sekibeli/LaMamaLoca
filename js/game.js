@@ -15,6 +15,7 @@ let timer;
 
 
 
+
 function init() {
   if (!sound) sound = true;
   clearInterval(idle);
@@ -22,6 +23,7 @@ function init() {
   document.getElementById('startScreen').classList.add('d-none');
 
   initLevel();
+
   canvas = document.getElementById('canvas');
   world = new World(canvas, keyboard);
   showInGameMenue();
@@ -41,6 +43,10 @@ function init() {
 
   if (!document.getElementById('youlost').classList.contains('d-none')) document.getElementById('youlost').classList.add('d-none');
   if (!document.getElementById('youwon').classList.contains('d-none')) document.getElementById('youwon').classList.add('d-none');
+  
+  addEventListener("keyup", debounce(doNothing, 3500));
+addEventListener("touchstart", debounce(doNothing, 3500));
+  addEventListener("click", debounce(doNothing, 3500));
 }
 
 function togglePause() {
@@ -282,12 +288,12 @@ function setMenuStartScreen() {
   document.getElementById('4').classList.add('d-none');
   document.getElementById('5').classList.add('d-none');
   document.getElementById('6').classList.add('d-none');
-  if( window.innerHeight == screen.height && !(mobileDevice || isIpadOS())) {
+  if (window.innerHeight == screen.height && !(mobileDevice || isIpadOS())) {
     document.getElementById('7').classList.add('d-none');
     document.getElementById('8').classList.remove('d-none');
-   console.log('FullscreenModus');
-}
-  
+    console.log('FullscreenModus');
+  }
+
   if (mobileDevice || isIpadOS()) {
     document.getElementById('7').classList.add('d-none');
     document.getElementById('mobileButtonsLayer').classList.add('d-none');
@@ -317,15 +323,17 @@ function checkIfPlayerPlays() {
 
 const doNothing = () => {
   console.log("Inaktivität");
-  idle = setInterval(() => { 
-    world.character.playAnimation(world.character.IMAGES_IDLING); 
+  idle = setInterval(() => {
+    world.character.waiting = true;
+    if (paused) {
+      clearInterval(idle);
+      return;
+    }
+    else { world.character.playAnimation(world.character.IMAGES_IDLING); }
   }, 150);
 
 };
 
-// addEventListener("keyup", debounce(doNothing, 3500));
-// addEventListener("touchstart", debounce(doNothing, 3500));
-// addEventListener("click", debounce(doNothing, 3500));
 
 
 

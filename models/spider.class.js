@@ -1,6 +1,6 @@
 class Spider extends MovableObject {
 
-    SPIDER_DEAD = new Audio('audio/spider_dead.mp3');
+    SPIDER_DEAD = new Audio('audio/yayMedium.mp3');
     speed = 0.35;
     height =90;
     width = 100;
