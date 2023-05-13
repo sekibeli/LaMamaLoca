@@ -188,7 +188,7 @@ class Character extends MovableObject {
         else if (this.world.keyboard.SPACE) {
             this.currentImage = 0;
 
-            if(world.throwableObjects.length > 0){
+            if(world.immunitionBox.length > 0){
             this.attack = setInterval(() => {
                 
                 this.playAnimation(this.IMAGES_ATTACK);

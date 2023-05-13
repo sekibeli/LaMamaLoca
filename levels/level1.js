@@ -80,19 +80,25 @@ function initLevel() {
 
     ],
     [
-        new Apple(),
-        new Apple(),
-        new Apple(),
-        new Apple(),
-        new Apple(),
-        new Apple(),
-        new Apple(),
-        new Apple(),
-        new Apple(),
-        new Apple(),
-        new Apple(),
-        new Apple()
+        new Immunition(),
+        new Immunition(),
+        new Immunition(),
+        new Immunition(),
+        new Immunition(),
+        new Immunition(),
+        new Immunition(),
+        new Immunition(),
+        new Immunition(),
+        new Immunition(),
+        new Immunition(),
+        new Immunition()
+
+        
     ],
+   [
+    // leeres Array für gesammelte fireballs
+   ],
+
     
         new Endboss()
   

@@ -13,7 +13,8 @@ class Endboss extends MovableObject {
     endbossDead = false;
     end = false;
     energy = 90;
-    animationStop;
+    animationStop = false;
+    endboss_invulnerable = false;
     ENDBOSS_DIES = new Audio ('audio/youWoncuttedShort.mp3');
 
 
@@ -121,7 +122,7 @@ class Endboss extends MovableObject {
 
 
         // }
-        else if ( Math.abs(world.character.x - this.x) <= 700 && !this.endbossDead) {
+        else if (this.hitWithApple || Math.abs(world.character.x - this.x) <= 700 && !this.endbossDead) {
             console.log(Math.abs(world.character.x - this.x));
             if (world.character.x < this.x && !world.character.characterDead ){
                 this.otherDirection = true;
@@ -137,7 +138,7 @@ class Endboss extends MovableObject {
 
         }
 
-        else if( world.character.x >2720 && world.character.x < this.x){
+        else if( this.hitWithApple || world.character.x >2720 && world.character.x < this.x){
             console.log('walking');
             this.otherDirection = true;
             this.playAnimation(this.IMAGES_WALKING);

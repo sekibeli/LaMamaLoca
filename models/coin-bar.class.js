@@ -10,7 +10,8 @@ class CoinBar extends StatusBar {
 
     amount_coins = 0;
     IMAGE = [
-        'img/8_coin/coin_1.png'
+        // 'img/8_coin/coin_1.png'
+      'images/Crystal/crystal.png'
     ]
 
     constructor() {
@@ -22,10 +23,14 @@ class CoinBar extends StatusBar {
         // this.y = 75;
         // this.width = 200;
         // this.height = 50;
-        this.x = 310;
-        this.y = -30;
-        this.width= 150;
-        this.height= 150;
+        // this.x = 310;
+        // this.y = -30;
+        this.x = 340;
+        this.y = 15;
+        // this.width= 150;
+        // this.height= 150;
+        this.width = 50;
+        this.height = 50;
 
     }
 
@@ -33,7 +38,8 @@ class CoinBar extends StatusBar {
         super.draw(ctx);
         ctx.font = "50px goofy";
      
-        ctx.fillText(this.amount_coins, this.x + 110, this.y + 80);
+        // ctx.fillText(this.amount_coins, this.x + 110, this.y + 80);
+        ctx.fillText(this.amount_coins, this.x + 57, this.y + 37);
 
     }
 }

@@ -152,8 +152,8 @@ top: 20px;
 }
 .mobileMove img {
    
-    width: 60px;
-    height: 60px;
+    width: 30px;
+    height: 30px;
 }
 
 
@@ -228,7 +228,7 @@ canvas {
     aspect-ratio: 720 / 480;
     /* max-width: 720px;
     max-height: 480px; */
-    background-image: url(images/start1.png);
+    background-image: url(images/start2.png);
     background-position: center;
     background-repeat: no-repeat;
     /* background-color: rgb(0, 0, 0); */
@@ -249,7 +249,15 @@ canvas {
     border: 1px solid white;
     cursor: pointer;
 }
-
+.buttonmobi {
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    background-color: rgba(255, 255, 255, 0.421);
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid white;
+}
 .button:hover {
     background-color: rgb(52, 126, 93);
     box-shadow: 4px 2px 8px rgba(0, 0, 0, 0.5);

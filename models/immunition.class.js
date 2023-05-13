@@ -1,4 +1,4 @@
-class Apple extends ThrowableObject {
+class Immunition extends MovableObject {
     width = 150;
     height = 150;
     speed = 0;
@@ -11,22 +11,22 @@ class Apple extends ThrowableObject {
     }
 
 
-    // IMAGES = [
-    //          'images/fireCollect2.png'
-       
-    // ];
+    IMAGES = [
+        'images/fireCollect2.png'
+
+    ];
     constructor() {
         super();
-       
         this.loadImage('images/fireCollect2.png');
-        this.x = 300 + Math.random() * 2000;
-         this.y = 100 + Math.random() * 200;
        
+       
+        this.x = 300 + Math.random() * 2000;
+        this.y = 100 + Math.random() * 200;
      
     }
 
-  
-   
+
+
 
 
     // animate(){
@@ -35,5 +35,5 @@ class Apple extends ThrowableObject {
     //     },200);
     // }
 
-   
+
 }

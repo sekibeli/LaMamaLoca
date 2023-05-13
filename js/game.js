@@ -12,6 +12,9 @@ let paused = false;
 let gameFinished = false;
 let idle;
 let timer;
+let keyup;
+let touchstart;
+let clickdrauf;
 
 
 
@@ -44,8 +47,8 @@ function init() {
   if (!document.getElementById('youlost').classList.contains('d-none')) document.getElementById('youlost').classList.add('d-none');
   if (!document.getElementById('youwon').classList.contains('d-none')) document.getElementById('youwon').classList.add('d-none');
   
-  addEventListener("keyup", debounce(doNothing, 3500));
-addEventListener("touchstart", debounce(doNothing, 3500));
+   addEventListener("keyup", debounce(doNothing, 3500));
+ addEventListener("touchstart", debounce(doNothing, 3500));
   addEventListener("click", debounce(doNothing, 3500));
 }
 
@@ -81,6 +84,8 @@ function setStoppableInterval(fn, time) {
 
 function gameEnd() {
   intervalIDs.forEach(clearInterval);
+
+
   // clearAllIntervals();
 }
 
@@ -273,9 +278,10 @@ function stopGame() {
   if (!document.getElementById('youwon').classList.contains('d-none')) document.getElementById('youwon').classList.add('d-none');
 
   clearInterval(idle);
+  clearAllIntervals();
   removeEventListener("keyup", debounce(doNothing, 3500));
   removeEventListener("touchstart", debounce(doNothing, 3500));
-  // removeEventListener("click", debounce(doNothing, 3500));
+  removeEventListener("click", debounce(doNothing, 3500));
 
 }
 
