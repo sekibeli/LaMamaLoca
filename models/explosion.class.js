@@ -1,7 +1,7 @@
 class Explosion extends MovableObject {
 
-    width = 150;
-    height = 150;
+    width = 200;
+    height = 200;
 
     IMAGES_EXPLOSION = [
         'images/Explosion/Explosion1.png',
@@ -18,16 +18,23 @@ class Explosion extends MovableObject {
     ]
 
     constructor(x,y){
+        super();
+        this.loadImages(this.IMAGES_EXPLOSION);
         this.x = x;
         this.y = y;
+        this.animate();
 
     }
 
 
     animate(){
-        setInterval(()=>{
-            if(!paused) this.playAnimation(this.IMAGES);
-        },200);
+        let explode = setInterval(()=>{
+            if(!paused) this.playAnimation(this.IMAGES_EXPLOSION);
+        },100);
+        setTimeout(()=> {
+            clearInterval(explode);
+            world.explosions.splice(0,1);
+        },950);
     }
 
 }

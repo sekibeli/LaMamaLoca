@@ -9,7 +9,7 @@ class World {
     healthBarEndboss = new HealthBarEndboss();
     endbossPic = new EndbossPic();
     characterPic = new CharacterPic();
-   
+ 
     // singleFire;
     attack;
 
@@ -72,7 +72,7 @@ class World {
     checkThrowObjects() {
         if (this.permissionToThrow && this.keyboard.SPACE && this.immunitionBox.length > 0) {
             this.permissionToThrow = false;
-
+console.log('shoooot');
             this.character.CHAR_SHOOT.play();
             this.character.currentImage = 0;
             this.attack = setInterval(() => {
@@ -92,7 +92,7 @@ class World {
             }
             setTimeout(()=>{
                 this.level.fireball.splice(0, 1);
-            },200);
+            },500);
             
         }
     }
@@ -262,13 +262,15 @@ class World {
     // }
 
     checkIfFireballCollidesWithEndboss(fireball) {
-
+       console.log( fireball.isColliding(this.level.endboss));
         if (fireball.isColliding(this.level.endboss) && !this.level.endboss.dead && this.level.endboss.energy > 0 && !this.level.endboss.endboss_invulnerable) {
 
 
              this.level.endboss.endboss_invulnerable = true;
             this.level.endboss.energy -= 15;
             console.log('Endboss wurde getroffen. Nur noch', this.level.endboss.energy, 'Energy übrig');
+
+            this.explosions.push(new Explosion(this.level.endboss.x -250 , this.level.endboss.y + 280));
 
            
 
@@ -291,7 +293,10 @@ class World {
                 this.level.endboss.endboss_invulnerable = false;
             },120);
            
+           setTimeout(()=> {
             this.level.fireball.splice(0, 1);
+            console.log('fireball gelöscht');
+        },400); 
         }
 
 
@@ -370,11 +375,12 @@ class World {
         this.addObjectsToMap(this.level.enemies);
         // this.addObjectsToMap(this.immunitionBox);
         this.addObjectsToMap(this.level.fireball);
-       this.addObjectsToMap(this.explosions);
+      
 
 
 
         this.addToMap(this.level.endboss);
+        this.addObjectsToMap(this.explosions);
         // this.addObjectsToMap(this.throwableObjects);
         this.addToMap(this.character);
         // ----------- fixed elements --------->
