@@ -12,7 +12,7 @@ class AppleBar extends DrawableObject {
     // ] 
 
     IMAGE = [
-        'images/apple.png'
+        'images/fireCollect2.png'
     ]
 
     constructor() {
@@ -24,10 +24,10 @@ class AppleBar extends DrawableObject {
         // this.y = 43;
         // this.width = 200;
         // this.height= 50;
-        this.x = 250;
-        this.y = 12;
-        this.width = 50;
-        this.height = 50;
+        this.x = 210;
+        this.y = -30;
+        this.width = 120;
+        this.height = 120;
 
     }
 
@@ -44,7 +44,7 @@ class AppleBar extends DrawableObject {
        
         super.draw(ctx);
         ctx.font = "50px goofy";
-        ctx.fillText(this.amount_apples, this.x + 50, this.y + 40);
+        ctx.fillText(this.amount_apples, this.x + 90, this.y + 80);
 
     } 
 

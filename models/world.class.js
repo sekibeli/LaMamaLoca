@@ -3,6 +3,7 @@ class World {
     character = new Character();
     statusBar = new StatusBar();
     healthBar = new HealthBar();
+    explosions = [];
     coinBar = new CoinBar();
     appleBar = new AppleBar();
     healthBarEndboss = new HealthBarEndboss();
@@ -57,6 +58,7 @@ class World {
             if (this.level.fireball.length == 1) {
 
                 this.checkIfFireballCollidesWithEndboss(this.level.fireball[0]);
+                
             }
 
 
@@ -71,6 +73,7 @@ class World {
         if (this.permissionToThrow && this.keyboard.SPACE && this.immunitionBox.length > 0) {
             this.permissionToThrow = false;
 
+            this.character.CHAR_SHOOT.play();
             this.character.currentImage = 0;
             this.attack = setInterval(() => {
                 this.character.playAnimation(this.character.IMAGES_ATTACK);
@@ -87,6 +90,10 @@ class World {
                 this.immunitionBox.splice(0, 1);
                 this.setAppleAmount(this.immunitionBox.length);
             }
+            setTimeout(()=>{
+                this.level.fireball.splice(0, 1);
+            },200);
+            
         }
     }
 
@@ -258,15 +265,18 @@ class World {
 
         if (fireball.isColliding(this.level.endboss) && !this.level.endboss.dead && this.level.endboss.energy > 0 && !this.level.endboss.endboss_invulnerable) {
 
-            // this.level.endboss.endboss_invulnerable = true;
+
+             this.level.endboss.endboss_invulnerable = true;
             this.level.endboss.energy -= 15;
             console.log('Endboss wurde getroffen. Nur noch', this.level.endboss.energy, 'Energy übrig');
 
-            // this.level.endboss.hitWithApple = true;
+           
+
+  
             this.level.endboss.amountAppleHits = this.level.endboss.amountAppleHits + 1;
 
             this.level.endboss.playAnimation(this.level.endboss.IMAGES_HURT);
-            // this.i++;
+            
             this.healthBarEndboss.setPercentage(this.level.endboss.energy);
             if (this.level.endboss.amountAppleHits == 2) {
                 this.level.endboss.currentImage = 0;
@@ -277,10 +287,10 @@ class World {
                 this.level.endboss.endbossDead = true;
                 console.log('endbossDead = ', this.level.endboss.endbossDead);
             }
-            // setTimeout(()=> {
-            //     this.level.endboss.endboss_invulnerable = true;
-            // },100);
-
+            setTimeout(()=> {
+                this.level.endboss.endboss_invulnerable = false;
+            },120);
+           
             this.level.fireball.splice(0, 1);
         }
 
@@ -358,8 +368,9 @@ class World {
         this.addObjectsToMap(this.level.coin);
         this.addObjectsToMap(this.level.immunition);
         this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.immunitionBox);
+        // this.addObjectsToMap(this.immunitionBox);
         this.addObjectsToMap(this.level.fireball);
+       this.addObjectsToMap(this.explosions);
 
 
 
@@ -407,7 +418,7 @@ class World {
         moveObj.draw(this.ctx);
         // moveObj.drawFrame(this.ctx);
 
-        // moveObj.drawFrameOffset(this.ctx, moveObj.offset);
+        moveObj.drawFrameOffset(this.ctx, moveObj.offset);
 
 
 

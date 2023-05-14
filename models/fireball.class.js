@@ -9,7 +9,7 @@ class Fireball extends ThrowableObject {
         right: 50,
         left: 60
     }
-
+    
 
     IMAGES = [
         'images/fireCollect2.png'
@@ -17,7 +17,8 @@ class Fireball extends ThrowableObject {
     ];
     constructor(x, y) {
         super(x,y);
-        this.loadImage('images/fireCollect2.png');
+        // this.loadImage('images/fireCollect2.png');
+        this.loadImages(this.IMAGES_EXPLOSION);
         // this.width = 50;
         // this.height = 50;
         this.x = x;
@@ -27,9 +28,8 @@ class Fireball extends ThrowableObject {
         // this.y = 100 + Math.random() * 200;
         this.throw();
         this.fireAnimation();
+        
     }
-
-
 
 
 

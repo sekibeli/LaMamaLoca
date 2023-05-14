@@ -8,6 +8,7 @@ class Character extends MovableObject {
     CHAR_JUMPING = new Audio('audio/littlejump.mp3');
     CHAR_DYING = new Audio('audio/characterDies.mp3');
     CHAR_HURT = new Audio('audio/characterOuchlong.mp3');
+    CHAR_SHOOT = new Audio('audio/shoot1.mp3');
     check = 0;
     invulnerable = false;
     offset = {

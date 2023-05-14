@@ -127,7 +127,7 @@ class Endboss extends MovableObject {
             if (world.character.x < this.x && !world.character.characterDead ){
                 this.otherDirection = true;
             this.playAnimation(this.IMAGES_WALKING);
-            this.moveLeft();
+            // this.moveLeft();
             }
              
             else if (0 < Math.abs(world.character.x - this.x) < 300 && world.character.energy <= 0){
@@ -142,7 +142,7 @@ class Endboss extends MovableObject {
             console.log('walking');
             this.otherDirection = true;
             this.playAnimation(this.IMAGES_WALKING);
-            this.moveLeft(); 
+            // this.moveLeft(); 
         }
 
         else {
