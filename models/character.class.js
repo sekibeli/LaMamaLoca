@@ -21,7 +21,7 @@ class Character extends MovableObject {
     energy = 60;
     hitByEndboss = false;
     animations;
-    attack;
+
     moving = false;
     waiting = true;
 
@@ -185,21 +185,21 @@ class Character extends MovableObject {
 
         }
 
-        else if (this.world.keyboard.SPACE) {
-            this.currentImage = 0;
+        // else if (this.world.keyboard.SPACE) {
+        //     this.currentImage = 0;
 
-            if(world.immunitionBox.length > 0){
-            this.attack = setInterval(() => {
+        //     if(world.immunitionBox.length > 0){
+        //     this.attack = setInterval(() => {
                 
-                this.playAnimation(this.IMAGES_ATTACK);
-            }, 100);
-            this.setTimer();
-        }
+        //         this.playAnimation(this.IMAGES_ATTACK);
+        //     }, 100);
+        //     this.setTimer();
+        // }
 
 
 
 
-        }
+        // }
 
 
         
@@ -221,9 +221,7 @@ class Character extends MovableObject {
         }
     }
 
-    setTimer() {
-        setTimeout(clearInterval, 200, this.attack);
-    }
+    
     animate() {
         setStoppableInterval(() => {
             this.characterMove();

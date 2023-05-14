@@ -8,9 +8,9 @@ class World {
     healthBarEndboss = new HealthBarEndboss();
     endbossPic = new EndbossPic();
     characterPic = new CharacterPic();
-    // singleApple = new ThrowableObject();
-    singleFire;
-
+   
+    // singleFire;
+    attack;
 
     immunitionBox = [];
     collectableObjects = [];
@@ -50,13 +50,13 @@ class World {
     run() {
 
         setStoppableInterval(() => {
-            // detectMobileDevice();
+            
             this.checkCollisions();
             this.checkThrowObjects();
             this.checkIfEndbossHitsCharacter();
-            if(this.level.fireball.length == 1){
-               
-            this.checkIfFireballCollidesWithEndboss(this.level.fireball[0]);
+            if (this.level.fireball.length == 1) {
+
+                this.checkIfFireballCollidesWithEndboss(this.level.fireball[0]);
             }
 
 
@@ -66,56 +66,23 @@ class World {
 
 
 
-    // checkThrowObjects() {
-
-    //     if (this.keyboard.SPACE) {
-
-    //         if (this.throwableObjects.length > 0 ) {
-    //                           this.throwableObjects[0].x = this.character.x + 60;
-    //                           this.throwableObjects[0].y = this.character.y + 110;
-    //             this.throwableObjects[0].y = this.character.y;
-    //                             this.apple = this.throwableObjects[0];
-
-    //             this.apple.throw();
-
-
-
-
-    //             this.checkIfAppleCollidesWithEndboss(this.apple);
-    //             setTimeout(() => {
-    //                 this.throwableObjects.splice(0, 1);
-    //             }, 400);
-    //         }
-    //     }
-    //     this.setAppleAmount(this.throwableObjects.length);
-
-    // }
 
     checkThrowObjects() {
         if (this.permissionToThrow && this.keyboard.SPACE && this.immunitionBox.length > 0) {
             this.permissionToThrow = false;
-            // new Fireball(this.character.x + 60, this.character.y);
-            // this.immunitionBox.push(fireball);
-            // this.singleFire = new Fireball(this.character.x + 60, this.character.y);
-            // this.singleFire = this.immunitionBox[0];
-            //    this.singleFire.x = this.character.x + 60;
-            //    this.singleFire.y = this.character.y;
-            //    this.immunitionBox.splice(0, 1); // this.character.amount_apples -= 1;
 
+            this.character.currentImage = 0;
+            this.attack = setInterval(() => {
+                this.character.playAnimation(this.character.IMAGES_ATTACK);
+            }, 50);
+            this.setTimer();
 
-            // this.singleFire.throw();
             this.level.fireball.push(new Fireball(this.character.x + 60, this.character.y));
-            // this.level.fireball[0].throw();
-            // this.singleFire.throw()
-            console.log(this.level.fireball);
-            console.log(this.level.fireball[0].isColliding(this.level.endboss));
             this.checkIfFireballCollidesWithEndboss(this.level.fireball[0]);
-
             
-
             setTimeout(() => {
                 this.permissionToThrow = true;
-            }, 500);
+            }, 200);
             {
                 this.immunitionBox.splice(0, 1);
                 this.setAppleAmount(this.immunitionBox.length);
@@ -123,6 +90,12 @@ class World {
         }
     }
 
+/**
+ * Deletes the attack-Animation after 100 ms.
+ */
+    setTimer() {
+        setTimeout(clearInterval, 100, this.attack);
+    }
     showEndScreen() {
         if (this.level.endboss.endbossDead && this.level.endboss.energy == 0) {
             gameFinished = true;
@@ -281,45 +254,39 @@ class World {
     //     }, 100);
     // }
 
-    checkIfFireballCollidesWithEndboss(fireball){
-        
-            if (fireball.isColliding(this.level.endboss) && !this.level.endboss.dead && this.level.endboss.energy > 0 && !this.level.endboss.endboss_invulnerable){
-               
-                // this.level.endboss.endboss_invulnerable = true;
-                this.level.endboss.energy -= 15;
-                console.log('Endboss wurde getroffen. Nur noch', this.level.endboss.energy, 'Energy übrig');
-                
-                // this.level.endboss.hitWithApple = true;
-                this.level.endboss.amountAppleHits = this.level.endboss.amountAppleHits + 1;
+    checkIfFireballCollidesWithEndboss(fireball) {
 
-                this.level.endboss.playAnimation(this.level.endboss.IMAGES_HURT);
-                // this.i++;
-                              this.healthBarEndboss.setPercentage(this.level.endboss.energy);
-                if (this.level.endboss.amountAppleHits == 2) {
-                    this.level.endboss.currentImage = 0;
-                    let ouchi = setInterval(() => { this.level.endboss.playAnimation(this.level.endboss.IMAGES_MUCHHURT); }, 300);
-                    setTimeout(clearInterval, 2000, ouchi);
-                }
-                else if (this.level.endboss.energy == 0) {
-                    this.level.endboss.endbossDead = true;
-                    console.log('endbossDead = ', this.level.endboss.endbossDead);
-                }
-                // setTimeout(()=> {
-                //     this.level.endboss.endboss_invulnerable = true;
-                // },100);
+        if (fireball.isColliding(this.level.endboss) && !this.level.endboss.dead && this.level.endboss.energy > 0 && !this.level.endboss.endboss_invulnerable) {
 
-                this.level.fireball.splice(0, 1);
+            // this.level.endboss.endboss_invulnerable = true;
+            this.level.endboss.energy -= 15;
+            console.log('Endboss wurde getroffen. Nur noch', this.level.endboss.energy, 'Energy übrig');
+
+            // this.level.endboss.hitWithApple = true;
+            this.level.endboss.amountAppleHits = this.level.endboss.amountAppleHits + 1;
+
+            this.level.endboss.playAnimation(this.level.endboss.IMAGES_HURT);
+            // this.i++;
+            this.healthBarEndboss.setPercentage(this.level.endboss.energy);
+            if (this.level.endboss.amountAppleHits == 2) {
+                this.level.endboss.currentImage = 0;
+                let ouchi = setInterval(() => { this.level.endboss.playAnimation(this.level.endboss.IMAGES_MUCHHURT); }, 300);
+                setTimeout(clearInterval, 2000, ouchi);
             }
-       
-        
+            else if (this.level.endboss.energy == 0) {
+                this.level.endboss.endbossDead = true;
+                console.log('endbossDead = ', this.level.endboss.endbossDead);
+            }
+            // setTimeout(()=> {
+            //     this.level.endboss.endboss_invulnerable = true;
+            // },100);
+
+            this.level.fireball.splice(0, 1);
+        }
+
+
     }
 
-
-
-    // playDeathAnimation() {
-    //     this.level.endboss.playAnimation(this.level.endboss.IMAGES_DEATH);
-
-    // }
 
     checkCollisionsCollect() {
         setStoppableInterval(() => {
@@ -340,7 +307,7 @@ class World {
             this.level.coin.forEach((co, i) => {
                 if (this.character.isColliding(co)) {
 
-                    if (sound) co.MONEY_COLLECT.play();
+                    if (sound) co.DIAMOND_COLLECT.play();
 
                     this.collectableObjects.push(co);
                     this.coinBar.amount_coins = this.collectableObjects.length;
@@ -440,7 +407,7 @@ class World {
         moveObj.draw(this.ctx);
         // moveObj.drawFrame(this.ctx);
 
-        moveObj.drawFrameOffset(this.ctx, moveObj.offset);
+        // moveObj.drawFrameOffset(this.ctx, moveObj.offset);
 
 
 

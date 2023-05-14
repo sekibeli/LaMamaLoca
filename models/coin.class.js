@@ -1,7 +1,7 @@
 class Coin extends MovableObject {
 width = 50;
 height = 50;
-MONEY_COLLECT = new Audio('audio/money.mp3');
+DIAMOND_COLLECT = new Audio('audio/collectDiamond.mp3');
 
 
 IMAGES = [
