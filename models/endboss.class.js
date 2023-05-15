@@ -110,7 +110,7 @@ class Endboss extends MovableObject {
         if (this.endbossDead && world.character.energy > 0) {
            if (sound) this.ENDBOSS_DIES.play();
             this.currentImage = 0;
-            console.log('endboss dead');
+            
             let playEndbossAnimation = setInterval(() => { this.playAnimation(this.IMAGES_DEATH) }, 250)
             world.showEndScreen();
         }
@@ -123,15 +123,15 @@ class Endboss extends MovableObject {
 
         // }
         else if (this.hitWithApple || Math.abs(world.character.x - this.x) <= 700 && !this.endbossDead) {
-            console.log(Math.abs(world.character.x - this.x));
+            // console.log(Math.abs(world.character.x - this.x));
             if (world.character.x < this.x && !world.character.characterDead ){
                 this.otherDirection = true;
             this.playAnimation(this.IMAGES_WALKING);
-            // this.moveLeft();
+            this.moveLeft();
             }
              
             else if (0 < Math.abs(world.character.x - this.x) < 300 && world.character.energy <= 0){
-                console.log('characterdead -> idle');
+               
                 this.playAnimation(this.IMAGES_IDLE);
             }
 
@@ -139,10 +139,10 @@ class Endboss extends MovableObject {
         }
 
         else if( this.hitWithApple || world.character.x >2720 && world.character.x < this.x){
-            console.log('walking');
+           
             this.otherDirection = true;
             this.playAnimation(this.IMAGES_WALKING);
-            // this.moveLeft(); 
+            this.moveLeft(); 
         }
 
         else {

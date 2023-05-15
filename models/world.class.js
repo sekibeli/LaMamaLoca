@@ -9,7 +9,7 @@ class World {
     healthBarEndboss = new HealthBarEndboss();
     endbossPic = new EndbossPic();
     characterPic = new CharacterPic();
- 
+    activeFireball;
     // singleFire;
     attack;
 
@@ -51,14 +51,14 @@ class World {
     run() {
 
         setStoppableInterval(() => {
-            
+
             this.checkCollisions();
-            this.checkThrowObjects();
+            this.checkIfCharacterShoots();
             this.checkIfEndbossHitsCharacter();
             if (this.level.fireball.length == 1) {
 
-                this.checkIfFireballCollidesWithEndboss(this.level.fireball[0]);
-                
+                // this.checkIfFireballCollidesWithEndboss();
+
             }
 
 
@@ -69,37 +69,11 @@ class World {
 
 
 
-    checkThrowObjects() {
-        if (this.permissionToThrow && this.keyboard.SPACE && this.immunitionBox.length > 0) {
-            this.permissionToThrow = false;
-console.log('shoooot');
-            this.character.CHAR_SHOOT.play();
-            this.character.currentImage = 0;
-            this.attack = setInterval(() => {
-                this.character.playAnimation(this.character.IMAGES_ATTACK);
-            }, 50);
-            this.setTimer();
+   
 
-            this.level.fireball.push(new Fireball(this.character.x + 60, this.character.y));
-            this.checkIfFireballCollidesWithEndboss(this.level.fireball[0]);
-            
-            setTimeout(() => {
-                this.permissionToThrow = true;
-            }, 200);
-            {
-                this.immunitionBox.splice(0, 1);
-                this.setAppleAmount(this.immunitionBox.length);
-            }
-            setTimeout(()=>{
-                this.level.fireball.splice(0, 1);
-            },500);
-            
-        }
-    }
-
-/**
- * Deletes the attack-Animation after 100 ms.
- */
+    /**
+     * Deletes the attack-Animation after 100 ms.
+     */
     setTimer() {
         setTimeout(clearInterval, 100, this.attack);
     }
@@ -234,51 +208,63 @@ console.log('shoooot');
     }
 
 
+    checkIfCharacterShoots() {
+        if (this.permissionToThrow && this.keyboard.SPACE && this.immunitionBox.length > 0) {
+            this.permissionToThrow = false;
+            console.log('character shoots!');
+            this.character.CHAR_SHOOT.play();
+            this.character.currentImage = 0;
+            this.attack = setInterval(() => {
+                this.character.playAnimation(this.character.IMAGES_ATTACK);
+            }, 50);
+            this.setTimer();
 
-    // checkIfAppleCollidesWithEndboss(apple) {
-    //     console.log('endbossDead = ', this.level.endboss.endbossDead);
-    //     setStoppableInterval(() => {
+            this.activeFireball = new Fireball(this.character.x + 60, this.character.y);
+            this.activeFireball.throw();
+            this.checkIfFireballCollidesWithEndboss();
+            this.activeFireball.fireAnimation();
+            
+            this.level.fireball.push(this.activeFireball);
 
-    //         if (this.level.fireball[0].isColliding(this.level.endboss) && !this.level.endboss.dead && this.level.endboss.energy > 0) {
-    //             this.level.endboss.energy -= 15;
-    //             console.log('Endboss wurde getroffen. Nur noch', this.level.endboss.energy, 'Energy übrig');
-    //             this.level.endboss.hitWithApple = true;
-    //             this.level.endboss.amountAppleHits = this.level.endboss.amountAppleHits + 1;
+            setTimeout(() => {
+                this.permissionToThrow = true;
+            }, 200);
+            {
+                this.immunitionBox.splice(0, 1);
+                this.setAppleAmount(this.immunitionBox.length);
+            }
 
-    //             this.level.endboss.playAnimation(this.level.endboss.IMAGES_HURT);
-    //             this.i++;
-    //                           this.healthBarEndboss.setPercentage(this.level.endboss.energy);
-    //             if (this.level.endboss.amountAppleHits == 2) {
-    //                 this.level.endboss.currentImage = 0;
-    //                 let ouchi = setInterval(() => { this.level.endboss.playAnimation(this.level.endboss.IMAGES_MUCHHURT); }, 300);
-    //                 setTimeout(clearInterval, 2000, ouchi);
-    //             }
-    //             else if (this.level.endboss.energy == 0) {
-    //                 this.level.endboss.endbossDead = true;
-    //                 console.log('endbossDead = ', this.level.endboss.endbossDead);
-    //             }
-    //         }
-    //     }, 100);
-    // }
-
-    checkIfFireballCollidesWithEndboss(fireball) {
-       console.log( fireball.isColliding(this.level.endboss));
-        if (fireball.isColliding(this.level.endboss) && !this.level.endboss.dead && this.level.endboss.energy > 0 && !this.level.endboss.endboss_invulnerable) {
+            setTimeout(() => {
+                this.level.fireball.splice(0, 1);
+            }, 400);
+           
+        }
+    }
 
 
-             this.level.endboss.endboss_invulnerable = true;
+    checkIfFireballCollidesWithEndboss() {
+        
+        console.log(this.activeFireball.x , world.level.endboss.x - 450 , this.activeFireball.y , world.level.endboss.y + 300);
+        console.log(this.activeFireball.x > world.level.endboss.x - 450 && this.activeFireball.y < world.level.endboss.y + 300);
+        // if(this.x > world.level.endboss.x - 250 && this.y < world.level.endboss.y + 300  && !this.level.endboss.dead && this.level.endboss.energy > 0 && !this.level.endboss.endboss_invulnerable) {
+        if (this.activeFireball.x > world.level.endboss.x - 450 && this.activeFireball.y < world.level.endboss.y + 300 && !this.level.endboss.dead && this.level.endboss.energy > 0 && !this.level.endboss.endboss_invulnerable) {
+            console.log('Fireball hits endboss');
+           
+            this.activeFireball.explosion = true;
+
+            console.log(this.activeFireball);
+
+            this.level.endboss.endboss_invulnerable = true;
             this.level.endboss.energy -= 15;
             console.log('Endboss wurde getroffen. Nur noch', this.level.endboss.energy, 'Energy übrig');
 
-            this.explosions.push(new Explosion(this.level.endboss.x -250 , this.level.endboss.y + 280));
+            // this.explosions.push(new Explosion(this.level.endboss.x -250 , this.level.endboss.y + 280));
 
-           
 
-  
             this.level.endboss.amountAppleHits = this.level.endboss.amountAppleHits + 1;
 
             this.level.endboss.playAnimation(this.level.endboss.IMAGES_HURT);
-            
+
             this.healthBarEndboss.setPercentage(this.level.endboss.energy);
             if (this.level.endboss.amountAppleHits == 2) {
                 this.level.endboss.currentImage = 0;
@@ -289,14 +275,13 @@ console.log('shoooot');
                 this.level.endboss.endbossDead = true;
                 console.log('endbossDead = ', this.level.endboss.endbossDead);
             }
-            setTimeout(()=> {
+            setTimeout(() => {
                 this.level.endboss.endboss_invulnerable = false;
-            },120);
-           
-           setTimeout(()=> {
+            }, 120);
+            world.activeFireball.explosion = false;
+
             this.level.fireball.splice(0, 1);
-            console.log('fireball gelöscht');
-        },400); 
+
         }
 
 
@@ -374,13 +359,21 @@ console.log('shoooot');
         this.addObjectsToMap(this.level.immunition);
         this.addObjectsToMap(this.level.enemies);
         // this.addObjectsToMap(this.immunitionBox);
-        this.addObjectsToMap(this.level.fireball);
-      
+        // this.addObjectsToMap(this.level.fireball);
+
 
 
 
         this.addToMap(this.level.endboss);
-        this.addObjectsToMap(this.explosions);
+        this.addObjectsToMap(this.level.fireball);
+        if (this.explosions.length > 0) {
+            try {
+                this.addObjectsToMap(this.explosions);
+            }
+            catch (e) {
+                console.log('draw-Fehler: ', this.explosions.length);
+            }
+        }
         // this.addObjectsToMap(this.throwableObjects);
         this.addToMap(this.character);
         // ----------- fixed elements --------->
@@ -407,7 +400,7 @@ console.log('shoooot');
                 this.addToMap(obj);
             });
         } catch (e) {
-            console.log('Fehler ', objects);
+            console.log('Fehler ', obj);
         }
     }
 

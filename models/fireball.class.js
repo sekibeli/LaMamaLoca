@@ -26,12 +26,21 @@ class Fireball extends ThrowableObject {
        
         // this.x = 300 + Math.random() * 2000;
         // this.y = 100 + Math.random() * 200;
-        this.throw();
-        this.fireAnimation();
+        // this.throw();
+        // this.fireAnimation();
         
     }
 
 
+    fireballExplosion(){
+        let explode = setInterval(()=>{
+            if(!paused) this.playAnimation(this.IMAGES_EXPLOSION);
+        },100);
+        setTimeout(()=> {
+            clearInterval(explode);
+            world.explosions.splice(0,1);
+        },950);
+    }
 
     // animate(){
     //     setInterval(()=> {
