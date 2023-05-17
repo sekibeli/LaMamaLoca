@@ -13,8 +13,6 @@ class Explosion extends MovableObject {
         'images/Explosion/Explosion7.png',
         'images/Explosion/Explosion8.png',
         'images/Explosion/Explosion9.png'
-
-
     ]
 
     constructor(x,y){
@@ -23,7 +21,6 @@ class Explosion extends MovableObject {
         this.x = x;
         this.y = y;
         this.animate();
-
     }
 
 

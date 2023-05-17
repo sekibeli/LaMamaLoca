@@ -7,7 +7,6 @@ class CollectableObject extends DrawableObject {
         this.height = 50;
         this.x = x;
         this.y = y;
-     
-        
+            
     }
 }

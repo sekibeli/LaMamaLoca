@@ -15,8 +15,8 @@ class Endboss extends MovableObject {
     energy = 90;
     animationStop = false;
     endboss_invulnerable = false;
-    ENDBOSS_DIES = new Audio ('audio/youWoncuttedShort.mp3');
-
+    ENDBOSS_DIES = new Audio('audio/youWoncuttedShort.mp3');
+    endbossHit = false;
 
     IMAGES_WALKING = [
         'images/Imp/Impwalk1.png',
@@ -41,7 +41,7 @@ class Endboss extends MovableObject {
     ]
 
     IMAGES_IDLE = [
-       
+
         'images/Imp/Impidle1.png',
         'images/Imp/Impidle2.png',
         'images/Imp/Impidle3.png'
@@ -59,15 +59,11 @@ class Endboss extends MovableObject {
         'images/Imp/Impliohurt1.png',
         'images/Imp/Impliohurt2.png',
         'images/Imp/Impliohurt3.png'
-       
+
     ]
 
     IMAGES_DEATH = [
-        // 'images/Imp/Impdeath1.png',
-        // 'images/Imp/Impdeath2.png',
-        // 'images/Imp/Impdeath3.png',
-        // 'images/Imp/Impdeath4.png',
-        // 'images/Imp/Impdeath5.png',
+     
         'images/Imp/Impdeath6.png',
         'images/Imp/Impdeath7.png',
         'images/Imp/Impdeath8.png',
@@ -100,90 +96,43 @@ class Endboss extends MovableObject {
     animate() {
         setStoppableInterval(() => {
             this.endbossMoves();
-            // world.checkIfEndbossIsDead();
-
-
         }, 250);
     }
 
     endbossMoves() {
         if (this.endbossDead && world.character.energy > 0) {
-           if (sound) this.ENDBOSS_DIES.play();
+            if (sound) this.ENDBOSS_DIES.play();
             this.currentImage = 0;
-            
+
             let playEndbossAnimation = setInterval(() => { this.playAnimation(this.IMAGES_DEATH) }, 250)
             world.showEndScreen();
         }
 
+        else if (this.hitWithApple || Math.abs(world.character.x - this.x) <= 1000 && !this.endbossDead) {
 
-        // else if (!this.hitWithApple && !this.endbossDead && world.character.x < 3000) {
-        //     this.otherDirection = true;
-        //     this.playAnimation(this.IMAGES_IDLE);
-
-
-        // }
-        else if (this.hitWithApple || Math.abs(world.character.x - this.x) <= 700 && !this.endbossDead) {
-            // console.log(Math.abs(world.character.x - this.x));
-            if (world.character.x < this.x && !world.character.characterDead ){
+            if (world.character.x < this.x && !world.character.characterDead) {
                 this.otherDirection = true;
-            this.playAnimation(this.IMAGES_WALKING);
-            this.moveLeft();
+                this.playAnimation(this.IMAGES_WALKING);
+                this.moveLeft();
             }
-             
-            else if (0 < Math.abs(world.character.x - this.x) < 300 && world.character.energy <= 0){
-               
+
+            else if (0 < Math.abs(world.character.x - this.x) < 300 && world.character.energy <= 0) {
                 this.playAnimation(this.IMAGES_IDLE);
             }
-
-
         }
 
-        else if( this.hitWithApple || world.character.x >2720 && world.character.x < this.x){
-           
+        else if (this.hitWithApple || world.character.x > 2720 && world.character.x < this.x) {
             this.otherDirection = true;
             this.playAnimation(this.IMAGES_WALKING);
-            this.moveLeft(); 
+            this.moveLeft();
         }
 
         else {
-          
             this.otherDirection = true;
             this.playAnimation(this.IMAGES_IDLE);
         }
 
-        //   else if (world.character.x < this.x && !this.dead) {
-        //     console.log(world.character.x < this.x && !this.dead);
-        //     this.playAnimation(this.IMAGES_WALKING);
-
-
-
-        //   }
-        //   else if (world.character.x > this.x && !this.dead) {
-        //     this.playAnimation(this.IMAGES_WALKING);
-        //     this.moveLeft();
-        //     console.log('2');
-
-        //   }
-
-        //   else if 
-
-        //      (world.checkIfEndbossIsDead()){
-        //     console.log('endboss erledigt');
-        //     this.playAnimationDead(this.IMAGES_DEATH, 'images/Imp/Imp_death8.png');
-        //     this.end = true;
-        //     return;
-        //   }
-
-
-
-
     }
-
-
-
-    // seeEndboss() {
-    //     return (world.character.x > 3000 || this.hitWithApple)
-    // }
 
 
 }

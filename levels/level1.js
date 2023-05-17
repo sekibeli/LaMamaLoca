@@ -5,17 +5,17 @@ function initLevel() {
 
    
     [
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new Spider(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Spider(),
       
-        // new Spider(),
-        // new Mosquito(),
-        // new Mosquito(),
-        // new Mosquito(),
-        // new Mosquito(),
-        // new Mosquito(),
+        new Spider(),
+        new Mosquito(),
+        new Mosquito(),
+        new Mosquito(),
+        new Mosquito(),
+        new Mosquito(),
         // new Spider(),
        
        

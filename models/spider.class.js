@@ -57,19 +57,11 @@ class Spider extends MovableObject {
 
         setStoppableInterval(() => {
              if(!paused) this.playAnimation(this.IMAGES_WALKING);
-
-             
+          
             
         }, 100);
     }
-// enemyIsDying(enemy){
-//     if(!this.enemyAlive){
-//         console.log('Enemy wird spider flach');
-//        enemy.width = 0;
-//     //    if (enemy.y < 0) enemy.y = 0;
-        
-//       }
-//     }
+
 
    
 }

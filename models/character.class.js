@@ -19,12 +19,12 @@ class Character extends MovableObject {
     }
     end = false;
     characterDead = false;
-    energy = 60;
+    energy = 90;
     hitByEndboss = false;
     animations;
 
     moving = false;
-    waiting = true;
+    // waiting = true;
 
 
 
@@ -38,13 +38,13 @@ class Character extends MovableObject {
     ];
 
     IMAGES_ATTACK = [
-       
+
         // 'images/Mage/Attack/attack2.png',
         // 'images/Mage/Attack/attack3.png',
         // 'images/Mage/Attack/attack4.png',
         'images/Mage/Attack/attack5.png',
         'images/Mage/Attack/attack1.png'
-        // 'images/Mage/Attack/attack6.png'
+        // 'images/Mage/Attack/attack6.png',
         // 'images/Mage/Attack/attack7.png'
     ]
 
@@ -121,44 +121,38 @@ class Character extends MovableObject {
     characterMove() {
         if (checkIfPlayerPlays()) {
             clearInterval(idle);
-            
-            this.waiting = false;
-       }
-        // this.CHAR_WALKING.pause();
+
+            // this.waiting = false;
+        }
+       
 
         if (this.world.keyboard.RIGHT && this.x <= this.world.level.level_end_x && !this.characterDead && !paused) {
             this.moveRight();
             this.otherDirection = false;
-           
+
         }
 
         if (this.world.keyboard.LEFT && this.x > 0 && !this.characterDead && !paused) {
             this.moveLeft();
             this.otherDirection = true;
-           
+
         }
 
         if (this.world.keyboard.D && !this.isAboveGround() && !this.characterDead) {
             this.jump();
-           setTimeout(()=>{
-            this.loadImage(this.IMAGES_WALKING[0]);
-           },1000);
+            setTimeout(() => {
+                this.loadImage(this.IMAGES_WALKING[0]);
+            }, 1000);
             if (sound) this.CHAR_JUMPING.play();
         }
-
-        // else {
-        //     this.playAnimation(world.character.IMAGES_IDLING); 
-        // }
-
-
 
         this.world.camera_x = -this.x + 100;
     }
 
     characterAnimation() {
-        if (checkIfPlayerPlays() || this.isHurt())  {
-        clearInterval(idle);
-        clearTimeout(this.waiting);
+        if (checkIfPlayerPlays() || this.isHurt()) {
+            clearInterval(idle);
+            // clearTimeout(this.waiting);
         }
 
 
@@ -168,7 +162,7 @@ class Character extends MovableObject {
             setInterval(() => {
                 this.playAnimation(this.IMAGES_DEAD);
             }, 200);
-            clearTimeout(this.waiting);
+            // clearTimeout(this.waiting);
             this.end = true;
             world.showEndScreen();
         }
@@ -177,58 +171,29 @@ class Character extends MovableObject {
             if (sound) this.CHAR_HURT.play();
             this.playAnimation(this.IMAGES_HURT);
             this.hitByEndboss = false;
-            
+
         }
         else if (this.isAboveGround()) {
-           
-            this.playAnimation(this.IMAGES_JUMPING);
 
+            this.playAnimation(this.IMAGES_JUMPING);
 
         }
 
-        // else if (this.world.keyboard.SPACE) {
-        //     this.currentImage = 0;
+         else {
 
-        //     if(world.immunitionBox.length > 0){
-        //     this.attack = setInterval(() => {
-                
-        //         this.playAnimation(this.IMAGES_ATTACK);
-        //     }, 100);
-        //     this.setTimer();
-        // }
-
-
-
-
-        // }
-
-
-        
-        else {
-            
 
             if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.characterDead && !paused) {
-                                this.playAnimation(this.IMAGES_WALKING);
-               
+                this.playAnimation(this.IMAGES_WALKING);
             }
-
-            else {
-               
-                // if (!checkIfPlayerPlays() && this.energy > 0 && this.waiting) this.loadImage(this.IMAGES_WALKING[0]);
-              
-                }
            
-
         }
     }
 
-    
+
     animate() {
         setStoppableInterval(() => {
             this.characterMove();
         }, 1000 / 60);
-
-        //    setStoppableInterval(this.characterMove(), 1000/60) ;
 
         setStoppableInterval(() => {
             this.characterAnimation();

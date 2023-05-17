@@ -4,7 +4,7 @@ class Level {
     clouds;
     backgroundObjects;
     coin;
-   throwableObject;
+//    throwableObject;
     immunition;
     fireball;
     endboss;
@@ -16,7 +16,6 @@ class Level {
         this.clouds = clouds;
         this.backgroundObjects = backgroundObjects;
         this.coin = coin;
-       
         this.immunition = immunition;
         this.fireball = fireball;
         this.endboss = endboss;

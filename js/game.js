@@ -6,7 +6,6 @@ let keyboard = new Keyboard();
 let intervalIDs = [];
 let mobileDevice;
 let backgroundBirds = new Audio('audio/backgroundbirds.mp3');
-// let idScreens = ['startScreen','canvas-Container'];
 let sound = true;
 let paused = false;
 let gameFinished = false;
@@ -16,12 +15,7 @@ let keyup;
 let touchstart;
 let clickdrauf;
 
-
-
-
-function init() {
-  if (!sound) sound = true;
-  clearInterval(idle);
+function createWorld() {
   document.getElementById('canvas').classList.remove('d-none');
   document.getElementById('startScreen').classList.add('d-none');
 
@@ -29,26 +23,37 @@ function init() {
 
   canvas = document.getElementById('canvas');
   world = new World(canvas, keyboard);
-  showInGameMenue();
-  // if (sound) backgroundBirds.play();
-  checkIfMusicShouldPlay();
 
-  detectMobileDevice();
-  if (mobileDevice || isIpadOS()) {
+}
+
+function checkIfMobileDeviceIsUsed(){
+  if (detectMobileDevice() || isIpadOS()) {
     document.getElementById('mobileButtonsLayer').classList.remove('d-none');
     document.getElementById('explanation').classList.add('d-none');
     document.getElementById('7').classList.add('d-none');
     console.log('Mobiles Gerät erkannt');
-
   }
+}
+
+function init() {
+  if (!sound) sound = true;
+  clearInterval(idle);
+  createWorld();
+  showInGameMenue();
+  checkIfMusicShouldPlay();
+  checkIfMobileDeviceIsUsed();
   bindBtsPressEvents();
 
 
   if (!document.getElementById('youlost').classList.contains('d-none')) document.getElementById('youlost').classList.add('d-none');
   if (!document.getElementById('youwon').classList.contains('d-none')) document.getElementById('youwon').classList.add('d-none');
-  
-   addEventListener("keyup", debounce(doNothing, 3500));
- addEventListener("touchstart", debounce(doNothing, 3500));
+ 
+  listenerOn();
+}
+
+function listenerOn(){
+  addEventListener("keyup", debounce(doNothing, 3500));
+  addEventListener("touchstart", debounce(doNothing, 3500));
   addEventListener("click", debounce(doNothing, 3500));
 }
 
@@ -69,6 +74,8 @@ function checkIfMusicShouldPlay() {
     }
   }, 500);
 }
+
+
 function showInGameMenue() {
   document.getElementById('0').classList.add('d-none');
   document.getElementById('2').classList.remove('d-none')
@@ -77,17 +84,17 @@ function showInGameMenue() {
   document.getElementById('6').classList.add('d-none');
 }
 
+
 function setStoppableInterval(fn, time) {
   let id = setInterval(fn, time);
   intervalIDs.push(id);
 }
 
+
 function gameEnd() {
   intervalIDs.forEach(clearInterval);
-
-
-  // clearAllIntervals();
 }
+
 
 function clearAllIntervals() {
   for (let i = 1; i < 9999; i++) window.clearInterval(i);
@@ -110,12 +117,12 @@ function detectMobileDevice() {
   return mobileDevice;
 }
 
+
 function isIpadOS() {
   return navigator.maxTouchPoints &&
     navigator.maxTouchPoints > 2 &&
     /MacIntel/.test(navigator.platform);
 }
-
 
 
 window.addEventListener('keydown', (e) => {
@@ -178,29 +185,26 @@ function bindBtsPressEvents() {
   });
 }
 
+
 function showInfo() {
   document.getElementById('infoLayer').classList.remove('d-none');
 }
+
 
 function closeInfo() {
   document.getElementById('infoLayer').classList.add('d-none');
 }
 
+
 function fullscreen() {
   if (!mobileDevice) {
 
     let fullscreen = document.getElementById('main');
-    // let startScreen = document.getElementById('startScreen');
-    enterFullscreen(fullscreen);
-    //  enterFullscreen(startScreen);
-
-
-  }
+           enterFullscreen(fullscreen);
+     }
 }
 
 function enterFullscreen(element) {
-
-
   if (element.requestFullscreen) {
     element.requestFullscreen();
   } else if (element.msRequestFullscreen) {      // for IE11 (remove June 15, 2022)
@@ -208,15 +212,18 @@ function enterFullscreen(element) {
   } else if (element.webkitRequestFullscreen) {  // iOS Safari
     element.webkitRequestFullscreen();
   }
+  adjustFullscreen();
+}
 
+
+function adjustFullscreen(){
   document.getElementById('canvas').style.height = "100vh";
   document.getElementById('7').classList.add('d-none');
   document.getElementById('8').classList.remove('d-none');
 }
 
+
 function stopFullscreen() {
-
-
   if (document.exitFullscreen) {
     document.exitFullscreen();
   } else if (document.webkitExitFullscreen) { /* Safari */
@@ -224,66 +231,60 @@ function stopFullscreen() {
   } else if (document.msExitFullscreen) { /* IE11 */
     document.msExitFullscreen();
   }
+  adjustExitFullscreen();
+ }
 
+
+function adjustExitFullscreen(){
   document.getElementById('canvas').style.height = "";
   document.getElementById('7').classList.remove('d-none');
   document.getElementById('8').classList.add('d-none');
-
-  // if(document.exitFullscreen) {
-  //   document.exitFullscreen();
-
-  // } else if(document.webkitExitFullscreen) {
-  //   document.webkitExitFullscreen();
-
-  // }
-
 }
 
 
 function stopSoundAtTheEnd() {
-  console.log('ende aus');
   if (sound) backgroundBirds.pause();
   sound = false;
 }
+
 
 function toggleSound() {
   console.log(sound);
   if (sound) {
     backgroundBirds.pause();
-
     sound = false;
     document.getElementById('2').classList.add('d-none');
     document.getElementById('3').classList.remove('d-none');
-
-
   }
   else {
     backgroundBirds.play();
-
     sound = true;
-
     document.getElementById('2').classList.remove('d-none');
     document.getElementById('3').classList.add('d-none');
   }
-
 }
+
 
 function stopGame() {
   document.getElementById('startScreen').classList.remove('d-none');
   gameEnd();
-
   setMenuStartScreen();
   stopSoundAtTheEnd();
   if (!document.getElementById('youlost').classList.contains('d-none')) document.getElementById('youlost').classList.add('d-none');
   if (!document.getElementById('youwon').classList.contains('d-none')) document.getElementById('youwon').classList.add('d-none');
-
+  listenerOff();
   clearInterval(idle);
   clearAllIntervals();
+   
+}
+
+
+function listenerOff(){
   removeEventListener("keyup", debounce(doNothing, 3500));
   removeEventListener("touchstart", debounce(doNothing, 3500));
   removeEventListener("click", debounce(doNothing, 3500));
-
 }
+
 
 function setMenuStartScreen() {
   document.getElementById('0').classList.remove('d-none');
@@ -294,25 +295,24 @@ function setMenuStartScreen() {
   document.getElementById('4').classList.add('d-none');
   document.getElementById('5').classList.add('d-none');
   document.getElementById('6').classList.add('d-none');
+  detectFullscreenModus();
+  if (detectMobileDevice() || isIpadOS()) {
+    document.getElementById('7').classList.add('d-none');
+    document.getElementById('mobileButtonsLayer').classList.add('d-none');
+  }
+ }
+
+
+function detectFullscreenModus(){
   if (window.innerHeight == screen.height && !(mobileDevice || isIpadOS())) {
     document.getElementById('7').classList.add('d-none');
     document.getElementById('8').classList.remove('d-none');
-    console.log('FullscreenModus');
-  }
-
-  if (mobileDevice || isIpadOS()) {
-    document.getElementById('7').classList.add('d-none');
-    document.getElementById('mobileButtonsLayer').classList.add('d-none');
-
-  }
-  else {
-    // document.getElementById('7').classList.remove('d-none');
-    // document.getElementById('8').classList.add('d-none');
+   
   }
 }
 
-function debounce(func, timeout) {
 
+function debounce(func, timeout) {
   timer;
   return (...args) => {
     clearTimeout(timer);
@@ -322,6 +322,7 @@ function debounce(func, timeout) {
   };
 }
 
+
 function checkIfPlayerPlays() {
   return keyboard.LEFT || keyboard.RIGHT || keyboard.D || keyboard.SPACE;
 }
@@ -330,18 +331,12 @@ function checkIfPlayerPlays() {
 const doNothing = () => {
   console.log("Inaktivität");
   idle = setInterval(() => {
-    world.character.waiting = true;
+    // world.character.waiting = true;
     if (paused) {
       clearInterval(idle);
       return;
     }
     else { world.character.playAnimation(world.character.IMAGES_IDLING); }
   }, 150);
-
 };
-
-
-
-
-
 

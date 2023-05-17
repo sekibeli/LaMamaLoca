@@ -21,13 +21,8 @@ class DrawableObject {
     }
 
     draw(ctx) {
-
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-
-  
-
-  
- } 
+   } 
     
 
     loadImages(arr) {
@@ -40,6 +35,7 @@ class DrawableObject {
         });
     } catch (e){}
     }
+    
     drawFrame(ctx) {
 
         if (this instanceof Character || this instanceof Chicken || this instanceof Spider || this instanceof Endboss || this instanceof Coin || this instanceof Apple || this instanceof Mosquito) {

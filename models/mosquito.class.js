@@ -22,7 +22,8 @@ class Mosquito extends MovableObject {
         this.loadImage('images/mosquito/flight1.png');
         this.loadImages(this.IMAGES_WALKING);
         this.x = 400 + Math.random() * 500;
-        this.y = 200 + Math.random() * 500;
+        this.y = 350 ;
+        //+ Math.random() * 500;
         this.speed = 0.55 + Math.random() * 0.5;
         // this.moveLeft();
         this.animate();
