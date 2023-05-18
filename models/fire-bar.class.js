@@ -1,5 +1,5 @@
 class FireBar extends DrawableObject {
-      amount_fire = 0;;
+    amount_fire = 0;;
 
     IMAGE = [
         'images/fireCollect2.png'
@@ -8,7 +8,6 @@ class FireBar extends DrawableObject {
     constructor() {
         super();
         this.loadImage(this.IMAGE);
-        console.log('constructor AppleAnzeige');
         this.x = 210;
         this.y = -30;
         this.width = 120;
@@ -16,14 +15,19 @@ class FireBar extends DrawableObject {
     }
 
 
-    pullOff(count) {
-        count--;
-    }
+    // pullOff(count) {
+    //     count--;
+    // }
 
-    putOn(count) {
-        count++;
-    }
+    // putOn(count) {
+    //     count++;
+    // }
 
+    /**
+     * 
+     * @param {*} ctx 
+     * Draws the amount of fire at the top of the page
+     */
     draw(ctx) {
         super.draw(ctx);
         ctx.font = "50px goofy";

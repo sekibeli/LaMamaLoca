@@ -1,5 +1,5 @@
 class CoinBar extends StatusBar {
-   
+
     amount_coins = 0;
     IMAGE = [
         'images/Crystal/crystal.png'
@@ -8,13 +8,16 @@ class CoinBar extends StatusBar {
     constructor() {
         super();
         this.loadImage(this.IMAGE);
-        console.log('constructor CoinsAnzeige');
         this.x = 340;
         this.y = 15;
         this.width = 50;
         this.height = 50;
     }
-
+    /**
+     * 
+     * @param {*} ctx 
+     * Draws the amount of diamonds at the top
+     */
     draw(ctx) {
         super.draw(ctx);
         ctx.font = "50px goofy";

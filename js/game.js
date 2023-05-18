@@ -57,6 +57,13 @@ function listenerOn(){
   addEventListener("click", debounce(doNothing, 3500));
 }
 
+function escapeFull(){
+  if (window.innerHeight == screen.height && keyboard.ESC == true)
+  stopFullscreen();
+}
+
+
+
 function togglePause() {
   if (paused) paused = false;
 
@@ -132,6 +139,7 @@ window.addEventListener('keydown', (e) => {
   if (e.keyCode == 39) keyboard.RIGHT = true;
   if (e.keyCode == 32) keyboard.SPACE = true;
   if (e.keyCode == 68) keyboard.D = true;
+  if (e.keyCode == 27) keyboard.ESC = true;
 });
 
 window.addEventListener('keyup', (e) => {
@@ -141,6 +149,7 @@ window.addEventListener('keyup', (e) => {
   if (e.keyCode == 39) keyboard.RIGHT = false;
   if (e.keyCode == 32) keyboard.SPACE = false;
   if (e.keyCode == 68) keyboard.D = false;
+  if (e.keyCode == 27) keyboard.ESC = false;
 });
 
 
@@ -201,6 +210,7 @@ function fullscreen() {
 
     let fullscreen = document.getElementById('main');
            enterFullscreen(fullscreen);
+                     
      }
 }
 
@@ -213,6 +223,13 @@ function enterFullscreen(element) {
     element.webkitRequestFullscreen();
   }
   adjustFullscreen();
+
+  document.addEventListener('keyup', function(e) {
+    console.log('exit');
+    if (e.keyCode == 27) { 
+      stopFullscreen();
+    }
+});
 }
 
 

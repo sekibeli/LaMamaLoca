@@ -1,5 +1,5 @@
 class HealthBar extends StatusBar {
-    percentage = 50;
+    percentage = 90;
    
     IMAGES= [
         'img/7_statusbars/1_statusbar/2_statusbar_health/blue/0.png',
@@ -13,8 +13,7 @@ class HealthBar extends StatusBar {
     constructor(){
         super();
         this.loadImages(this.IMAGES);
-        console.log('constructor Health');
-        this.setPercentage(60);
+        this.setPercentage(90);
         this.x = 20;
         this.y = 10;
         this.width = 200;

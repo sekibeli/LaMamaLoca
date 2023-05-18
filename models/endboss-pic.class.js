@@ -1,7 +1,5 @@
 class EndbossPic extends StatusBar {
 
-
-
     IMAGE = [
         'images/Imp/icon_health_real_endboss.png'
     ]
@@ -14,6 +12,4 @@ class EndbossPic extends StatusBar {
         this.width = 60;
         this.height = 60;
     }
-
-
 }

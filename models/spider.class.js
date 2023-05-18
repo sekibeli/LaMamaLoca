@@ -2,7 +2,7 @@ class Spider extends MovableObject {
 
     SPIDER_DEAD = new Audio('audio/yayMedium.mp3');
     speed = 0.35;
-    height =90;
+    height = 90;
     width = 100;
     y = 350;
     spiderAlive = true;
@@ -40,28 +40,18 @@ class Spider extends MovableObject {
         this.animate();
     }
 
-
+    /**
+     * enemies always go to the character
+     */
     animate() {
-
         setStoppableInterval(() => {
-         if(!paused) {
-            if(this.x > world.character.x) {this.moveLeft()}
-            else {this.moveRight()}
-         }
-         
-
-        //  this.moveLeft();
+            if (!paused) {
+                if (this.x > world.character.x) { this.moveLeft() }
+                else { this.moveRight() }
+            }
         }, 1000 / 60);
-
-
-
         setStoppableInterval(() => {
-             if(!paused) this.playAnimation(this.IMAGES_WALKING);
-          
-            
+            if (!paused) this.playAnimation(this.IMAGES_WALKING);
         }, 100);
     }
-
-
-   
 }

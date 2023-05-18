@@ -3,7 +3,6 @@ class Coin extends MovableObject {
     height = 50;
     DIAMOND_COLLECT = new Audio('audio/collectDiamond.mp3');
 
-
     IMAGES = [
         'images/Crystal/crystal.png',
         'images/Crystal/crystal2.png',
@@ -16,9 +15,9 @@ class Coin extends MovableObject {
         'images/Crystal/crystal9.png',
         'images/Crystal/crystal10.png'
     ]
+   
     constructor() {
         super();
-
         this.loadImage('images/Crystal/crystal.png');
         this.loadImages(this.IMAGES);
         this.x = 500 + Math.random() * 2300;
@@ -26,7 +25,9 @@ class Coin extends MovableObject {
         this.animate();
     }
 
-
+/**
+ * Plays the diamond-animation
+ */
     animate() {
         setInterval(() => {
             if (!paused) this.playAnimation(this.IMAGES);

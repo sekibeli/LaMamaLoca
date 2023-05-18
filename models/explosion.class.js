@@ -23,7 +23,9 @@ class Explosion extends MovableObject {
         this.animate();
     }
 
-
+/**
+ * shows the explosion-animation when the fireball hits the endboss
+ */
     animate(){
         let explode = setInterval(()=>{
             if(!paused) this.playAnimation(this.IMAGES_EXPLOSION);

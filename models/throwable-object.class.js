@@ -1,5 +1,6 @@
 class ThrowableObject extends MovableObject {
-    i = 1;
+    // i = 1;
+    currentImage = 0;
     flyingFire;
     animationFire;
     IMAGES_FIRE = [
@@ -25,15 +26,12 @@ class ThrowableObject extends MovableObject {
         'images/Explosion/Explosion7.png',
         'images/Explosion/Explosion8.png',
         'images/Explosion/Explosion9.png'
-
-
     ]
-//    explosion = false;
-currentImage = 0;
+
+
     constructor(x, y) {
         super();
         this.loadImage('images/fire/fire1.png');
-
         this.loadImages(this.IMAGES_FIRE);
         this.loadImages(this.IMAGES_EXPLOSION);
         this.width = 50;
@@ -42,20 +40,21 @@ currentImage = 0;
         this.y = y;
     }
 
+    /**
+     * moves a object in a throw to the right or left
+     */
     throw() {
         this.speedY = 15;
         this.applyGravity();
         this.flyingFire = setInterval(() => {
-                         if (!world.character.otherDirection) {
-                    this.x += 25;
-                }
-                else {
-                    this.x -= 25;
-                }
-                  }, 10);
+            if (!world.character.otherDirection) {
+                this.x += 25;
+            }
+            else {
+                this.x -= 25;
+            }
+        }, 10);
     }
-
-
 }
 
 

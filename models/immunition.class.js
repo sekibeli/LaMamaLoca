@@ -2,7 +2,7 @@ class Immunition extends MovableObject {
     width = 150;
     height = 150;
     speed = 0;
-  FIRE_COLLECT = new Audio('audio/appleBite.mp3');
+    FIRE_COLLECT = new Audio('audio/appleBite.mp3');
     offset = {
         top: 80,
         bottom: 30,
@@ -13,15 +13,12 @@ class Immunition extends MovableObject {
 
     IMAGES = [
         'images/fireCollect2.png'
-
     ];
+
     constructor() {
         super();
         this.loadImage('images/fireCollect2.png');
         this.x = 300 + Math.random() * 2000;
         this.y = 100 + Math.random() * 200;
-
     }
-
-
 }

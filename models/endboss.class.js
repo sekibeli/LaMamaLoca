@@ -1,7 +1,6 @@
 class Endboss extends MovableObject {
     width = 600;
     height = 700;
-
     offset = {
         top: 150,
         bottom: 190,
@@ -13,10 +12,10 @@ class Endboss extends MovableObject {
     endbossDead = false;
     end = false;
     energy = 90;
-    animationStop = false;
+    // animationStop = false;
     endboss_invulnerable = false;
     ENDBOSS_DIES = new Audio('audio/youWoncuttedShort.mp3');
-    endbossHit = false;
+    // endbossHit = false;
 
     IMAGES_WALKING = [
         'images/Imp/Impwalk1.png',
@@ -29,8 +28,6 @@ class Endboss extends MovableObject {
         'images/Imp/Impattack2.png',
         'images/Imp/Impattack3.png',
         'images/Imp/Impattack4.png'
-
-
     ]
 
     IMAGES_ATTACK = [
@@ -41,29 +38,26 @@ class Endboss extends MovableObject {
     ]
 
     IMAGES_IDLE = [
-
         'images/Imp/Impidle1.png',
         'images/Imp/Impidle2.png',
         'images/Imp/Impidle3.png'
     ]
+
     IMAGES_HURT = [
         'images/Imp/Imphurt1.png',
         'images/Imp/Imphurt2.png',
         'images/Imp/Imphurt3.png',
         'images/Imp/Imphurt4.png',
-
     ]
 
     IMAGES_MUCHHURT = [
-        'images/Imp/Imphurt4.png',
+        // 'images/Imp/Imphurt4.png',
         'images/Imp/Impliohurt1.png',
         'images/Imp/Impliohurt2.png',
         'images/Imp/Impliohurt3.png'
-
     ]
 
     IMAGES_DEATH = [
-     
         'images/Imp/Impdeath6.png',
         'images/Imp/Impdeath7.png',
         'images/Imp/Impdeath8.png',
@@ -75,11 +69,9 @@ class Endboss extends MovableObject {
     ]
 
 
-
     constructor() {
         super();
-        console.log('constructor Endboss');
-        this.loadImage(this.IMAGES_WALKING[0]);
+               this.loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_ATTACK);
@@ -93,46 +85,56 @@ class Endboss extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Starts the intervals witch moves the endboss
+     */
     animate() {
         setStoppableInterval(() => {
             this.endbossMoves();
         }, 250);
     }
 
+    /**
+     * Behaviour of endboss
+     */
     endbossMoves() {
         if (this.endbossDead && world.character.energy > 0) {
-            if (sound) this.ENDBOSS_DIES.play();
-            this.currentImage = 0;
-
-            let playEndbossAnimation = setInterval(() => { this.playAnimation(this.IMAGES_DEATH) }, 250)
-            world.showEndScreen();
+           this. endbossDies();
         }
-
         else if (this.hitWithApple || Math.abs(world.character.x - this.x) <= 1000 && !this.endbossDead) {
-
             if (world.character.x < this.x && !world.character.characterDead) {
-                this.otherDirection = true;
-                this.playAnimation(this.IMAGES_WALKING);
-                this.moveLeft();
+              this.endbossWalking();
             }
-
             else if (0 < Math.abs(world.character.x - this.x) < 300 && world.character.energy <= 0) {
                 this.playAnimation(this.IMAGES_IDLE);
             }
         }
-
-        else if (this.hitWithApple || world.character.x > 2720 && world.character.x < this.x) {
-            this.otherDirection = true;
-            this.playAnimation(this.IMAGES_WALKING);
-            this.moveLeft();
-        }
-
-        else {
-            this.otherDirection = true;
-            this.playAnimation(this.IMAGES_IDLE);
-        }
-
+        // else if (this.hitWithApple || world.character.x > 2720 && world.character.x < this.x) {
+        //    this.endbossWalking();
+        // }
+        // else {
+        //     this.otherDirection = true;
+        //     this.playAnimation(this.IMAGES_IDLE);
+        // }
     }
 
+/**
+ * Animation endboss walks left
+ */
+endbossWalking(){
+    this.otherDirection = true;
+    this.playAnimation(this.IMAGES_WALKING);
+    this.moveLeft();
+}
+
+/**
+ * Animation endboss dies
+ */
+    endbossDies(){
+        if (sound) this.ENDBOSS_DIES.play();
+        this.currentImage = 0;
+        let playEndbossAnimation = setInterval(() => { this.playAnimation(this.IMAGES_DEATH) }, 250)
+        world.showEndScreen();
+    }
 
 }

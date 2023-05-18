@@ -13,6 +13,4 @@ class CharacterPic extends StatusBar {
         this.width = 60;
         this.height = 60;
     }
-
-
 }
