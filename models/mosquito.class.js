@@ -2,6 +2,7 @@ class Mosquito extends MovableObject {
     MOSQUITO_CLAP = new Audio('audio/mosquitoClap.mp3');
     height = 110;
     width = 120;
+
     offset = {
         top: 30,
         bottom: 30,
@@ -18,21 +19,35 @@ class Mosquito extends MovableObject {
         super();
         this.loadImage('images/mosquito/flight1.png');
         this.loadImages(this.IMAGES_WALKING);
-        this.x = 400 + Math.random() * 500;
+        this.x = 300 + Math.random() * 3000;
         this.y = 350;
-        //+ Math.random() * 500;
         this.speed = 0.55 + Math.random() * 0.5;
-        // this.moveLeft();
-        this.animate();
+        this.animate(this.randomDirection());
     }
 
 
-    animate() {
+    animate(direction) {
         setStoppableInterval(() => {
-            if (!paused) this.moveRight();
+            if(!paused){
+            if (direction == 'goleft') {
+                this.otherDirection = true;
+                this.moveLeft();
+            }
+            else { this.moveRight(); }}
         }, 1000 / 60);
+    
         setStoppableInterval(() => {
             if (!paused) this.playAnimation(this.IMAGES_WALKING);
         }, 200);
+    }
+
+
+    randomDirection() {
+        if (Math.random() < 0.5) {
+            return 'goleft';
+        }
+        else {
+            return 'goright';
+        }
     }
 }
