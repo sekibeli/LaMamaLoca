@@ -101,11 +101,11 @@ class Endboss extends MovableObject {
         if (this.endbossDead && world.character.energy > 0) {
            this. endbossDies();
         }
-        else if (this.hitWithApple || Math.abs(world.character.x - this.x) <= 1000 && !this.endbossDead) {
+        else if (this.hitWithApple || Math.abs(world.character.x - this.x) <= 1000 && !this.endbossDead && !paused ) {
             if (world.character.x < this.x && !world.character.characterDead) {
               this.endbossWalking();
             }
-            else if (0 < Math.abs(world.character.x - this.x) < 300 && world.character.energy <= 0) {
+            else if (0 < Math.abs(world.character.x - this.x) < 300 && world.character.energy <= 0 && !paused) {
                 this.playAnimation(this.IMAGES_IDLE);
             }
         }
@@ -123,8 +123,10 @@ class Endboss extends MovableObject {
  */
 endbossWalking(){
     this.otherDirection = true;
+    if(!paused){
     this.playAnimation(this.IMAGES_WALKING);
     this.moveLeft();
+    }
 }
 
 /**
